@@ -1,0 +1,88 @@
+[
+  {
+    "nome": "Parque São Domingos",
+    "ativo": true,
+    "aliases": ["parque sao domingos", "pq sao domingos", "pq. sao domingos", "sao domingos"],
+    "latitude": -23.5048,
+    "longitude": -46.7352
+  },
+  {
+    "nome": "Vila Anastácio",
+    "ativo": true,
+    "aliases": ["vila anastacio", "v. anastacio", "anastacio"]
+  },
+  {
+    "nome": "Anastácio",
+    "ativo": true,
+    "aliases": ["anastacio"]
+  },
+  {
+    "nome": "Lapa",
+    "ativo": true,
+    "aliases": ["lapa", "lapa de baixo", "centro da lapa"]
+  },
+  {
+    "nome": "Vila Romana",
+    "ativo": true,
+    "aliases": ["vila romana", "v. romana"]
+  },
+  {
+    "nome": "Vila Ipojuca",
+    "ativo": true,
+    "aliases": ["vila ipojuca", "v. ipojuca", "ipojuca"]
+  },
+  {
+    "nome": "Pompéia",
+    "ativo": true,
+    "aliases": ["pompeia", "vila pompeia"]
+  },
+  {
+    "nome": "Perdizes",
+    "ativo": true,
+    "aliases": ["perdizes"]
+  },
+  {
+    "nome": "Sumarezinho",
+    "ativo": true,
+    "aliases": ["sumarezinho", "sumare"]
+  },
+  {
+    "nome": "Vila Mangalot",
+    "ativo": true,
+    "aliases": ["vila mangalot", "v. mangalot", "mangalot"],
+    "regra_especial": {
+      "tipo": "proximidade_parque_sao_domingos",
+      "distancia_max_km": 2.0,
+      "centro_referencia": {
+        "nome": "Parque São Domingos",
+        "latitude": -23.5048,
+        "longitude": -46.7352
+      }
+    }
+  },
+  {
+    "nome": "Barra Funda",
+    "ativo": true,
+    "aliases": ["barra funda"]
+  },
+  {
+    "nome": "City América",
+    "ativo": true,
+    "aliases": ["city america", "city américa"]
+  },
+  {
+    "nome": "Bela Aliança",
+    "ativo": true,
+    "aliases": ["bela alianca", "city lapa", "bela aliança"]
+  },
+  {
+    "nome": "Vila Leopoldina",
+    "ativo": true,
+    "aliases": ["vila leopoldina", "v. leopoldina", "leopoldina"]
+  },
+  {
+    "nome": "Alto da Lapa",
+    "ativo": true,
+    "aliases": ["alto da lapa", "alto de pinheiros / lapa"]
+  }
+]

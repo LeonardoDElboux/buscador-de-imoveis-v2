@@ -1,0 +1,162 @@
+[
+  {
+    "id": "marcelo_imoveis",
+    "nome": "Marcelo Imóveis",
+    "url": "https://www.marceloimob.com.br",
+    "scraper": "marcelo",
+    "ativa": true,
+    "status": "funcionando",
+    "ultima_tentativa": null,
+    "imoveis_encontrados": 0
+  },
+  {
+    "id": "marques_dias",
+    "nome": "Marques Dias Imóveis",
+    "url": "https://www.marquesdiasimoveis.com.br",
+    "scraper": "marques_dias",
+    "ativa": true,
+    "status": "funcionando",
+    "ultima_tentativa": null,
+    "imoveis_encontrados": 0
+  },
+  {
+    "id": "confia_imoveis",
+    "nome": "Confia Imóveis",
+    "url": "https://www.confiaimoveis.com.br",
+    "scraper": "confia",
+    "ativa": true,
+    "status": "funcionando",
+    "ultima_tentativa": null,
+    "imoveis_encontrados": 0
+  },
+  {
+    "id": "gamba_imoveis",
+    "nome": "Gamba Imóveis",
+    "url": "https://www.gambaimoveis.com.br",
+    "scraper": "gamba",
+    "ativa": true,
+    "status": "funcionando",
+    "ultima_tentativa": null,
+    "imoveis_encontrados": 0
+  },
+  {
+    "id": "montenegro_imoveis",
+    "nome": "Montenegro Imóveis",
+    "url": "https://www.montenegroimoveis.com.br",
+    "scraper": "montenegro",
+    "ativa": true,
+    "status": "funcionando",
+    "ultima_tentativa": null,
+    "imoveis_encontrados": 0
+  },
+  {
+    "id": "zimmermann",
+    "nome": "Zimmermann Imóveis",
+    "url": "https://www.zimoveis.com.br",
+    "scraper": "zimmermann",
+    "ativa": true,
+    "status": "funcionando",
+    "ultima_tentativa": null,
+    "imoveis_encontrados": 0
+  },
+  {
+    "id": "lobelo",
+    "nome": "Lobelo Imóveis",
+    "url": "https://lobello.com.br",
+    "scraper": "lobelo",
+    "ativa": true,
+    "status": "funcionando",
+    "ultima_tentativa": null,
+    "imoveis_encontrados": 0
+  },
+  {
+    "id": "garoni",
+    "nome": "Garoni Imóveis",
+    "url": "https://www.garoniimoveis.com.br",
+    "scraper": "garoni",
+    "ativa": true,
+    "status": "funcionando",
+    "ultima_tentativa": null,
+    "imoveis_encontrados": 0
+  },
+  {
+    "id": "pacheco_imoveis",
+    "nome": "Pacheco Imóveis",
+    "url": "https://www.pacheco.com.br",
+    "scraper": "pacheco",
+    "ativa": true,
+    "status": "funcionando",
+    "ultima_tentativa": null,
+    "imoveis_encontrados": 0
+  },
+  {
+    "id": "gimenez",
+    "nome": "Imobiliária Gimenez",
+    "url": "https://www.imobiliariagimenez.com.br",
+    "scraper": "gimenez",
+    "ativa": true,
+    "status": "funcionando",
+    "ultima_tentativa": null,
+    "imoveis_encontrados": 0
+  },
+  {
+    "id": "carrera",
+    "nome": "Carrera Imóveis",
+    "url": "https://www.carreraimoveis.com.br",
+    "scraper": "carrera",
+    "ativa": true,
+    "status": "funcionando",
+    "ultima_tentativa": null,
+    "imoveis_encontrados": 0
+  },
+  {
+    "id": "caramelo",
+    "nome": "Caramelo Imóveis",
+    "url": "https://www.carameloimoveis.com.br",
+    "scraper": "caramelo",
+    "ativa": true,
+    "status": "funcionando",
+    "ultima_tentativa": null,
+    "imoveis_encontrados": 0
+  },
+  {
+    "id": "zapimoveis",
+    "nome": "ZAP Imóveis",
+    "url": "https://www.zapimoveis.com.br/aluguel/imoveis/sp+sao-paulo+zona-oeste",
+    "scraper": "zapimoveis",
+    "ativa": true,
+    "status": "funcionando",
+    "ultima_tentativa": null,
+    "imoveis_encontrados": 0
+  },
+  {
+    "id": "olx",
+    "nome": "OLX Imóveis SP",
+    "url": "https://www.olx.com.br/imoveis/aluguel/estado-sp/sao-paulo-e-regiao/zona-oeste",
+    "scraper": "olx",
+    "ativa": true,
+    "status": "funcionando",
+    "ultima_tentativa": null,
+    "imoveis_encontrados": 0
+  },
+  {
+    "id": "quintoandar",
+    "nome": "QuintoAndar",
+    "url": "https://www.quintoandar.com.br/alugar/imovel/sao-paulo-sp-brasil",
+    "scraper": "quintoandar",
+    "ativa": true,
+    "status": "funcionando",
+    "ultima_tentativa": null,
+    "imoveis_encontrados": 0
+  },
+  {
+    "id": "imovelweb",
+    "nome": "Imovelweb",
+    "url": "https://www.imovelweb.com.br/imoveis-aluguel-sao-paulo-zona-oeste.html",
+    "scraper": "imovelweb",
+    "ativa": true,
+    "status": "funcionando",
+    "ultima_tentativa": null,
+    "imoveis_encontrados": 0
+  }
+]

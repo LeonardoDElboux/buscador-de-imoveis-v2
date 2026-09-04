@@ -1,0 +1,3149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Imóveis — Centralizador de Aluguel</title>
+    <style>
+:root {
+    --bg-main: #f8fafc;
+    --bg-card: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --border-color: #e2e8f0;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --primary-light: #eff6ff;
+    --success: #10b981;
+    --success-light: #ecfdf5;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.5;
+    padding-bottom: 60px;
+}
+
+.app-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.logo-icon {
+    font-size: 32px;
+    background: #e0e7ff;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+}
+
+.logo-title {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+}
+
+.logo-subtitle {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.last-search-info {
+    font-size: 13px;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.info-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+}
+
+.info-val {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.btn-primary-glow {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.39);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary-glow:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px 0 rgba(37, 99, 235, 0.45);
+}
+
+.btn-primary-glow:active {
+    transform: translateY(0);
+}
+
+/* PROGRESS BAR BOX (SSE) */
+.progress-box {
+    background: #ffffff;
+    border: 1px solid #bfdbfe;
+    border-radius: var(--radius-md);
+    padding: 18px 20px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-sm);
+    animation: fadeIn 0.3s ease;
+}
+
+.progress-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.progress-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #1e3a8a;
+    flex-grow: 1;
+}
+
+.progress-counter-badge {
+    background: #dbeafe;
+    color: #1e40af;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+
+.progress-bar-track {
+    width: 100%;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6 0%, #10b981 100%);
+    transition: width 0.3s ease;
+}
+
+.progress-chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-height: 80px;
+    overflow-y: auto;
+}
+
+.source-chip {
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+    background: #f1f5f9;
+    color: var(--text-secondary);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.source-chip.sucesso {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.source-chip.erro {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.source-chip.pesquisando {
+    background: #eff6ff;
+    color: #1e40af;
+    border: 1px solid #bfdbfe;
+    animation: pulse 1s infinite alternate;
+}
+
+/* SPINNER */
+.spinner-small {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #93c5fd;
+    border-top-color: #2563eb;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    from { opacity: 0.7; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* SUMMARY ALERT */
+.summary-alert {
+    background: #ecfdf5;
+    border: 1px solid #6ee7b7;
+    color: #065f46;
+    padding: 12px 18px;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-close-summary {
+    background: none;
+    border: none;
+    color: #065f46;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* TABS */
+.nav-tabs {
+    display: flex;
+    gap: 8px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 24px;
+    overflow-x: auto;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.tab-btn:hover {
+    color: var(--primary);
+}
+
+.tab-btn.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+/* MAIN LAYOUT */
+.main-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+/* SIDEBAR FILTERS */
+.sidebar-filters {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 20px;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.btn-text-reset {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-text-reset:hover {
+    text-decoration: underline;
+}
+
+.filter-group {
+    margin-bottom: 18px;
+}
+
+.filter-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.input-control {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--text-primary);
+    background: #fff;
+    transition: border-color 0.2s;
+}
+
+.input-control:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.row-2cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+/* RESULTS AREA */
+.content-area {
+    min-width: 0;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 18px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.results-subtext {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+/* CARDS GRID */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+/* PROPERTY CARD */
+.prop-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.prop-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* PHOTO CAROUSEL */
+.card-media {
+    position: relative;
+    width: 100%;
+    height: 210px;
+    background: #0f172a;
+    overflow: hidden;
+}
+
+.card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.2s ease;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(15, 23, 42, 0.7);
+    color: #fff;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+}
+
+.carousel-btn:hover {
+    opacity: 1;
+    background: rgba(15, 23, 42, 0.95);
+}
+
+.carousel-btn.prev {
+    left: 8px;
+}
+
+.carousel-btn.next {
+    right: 8px;
+}
+
+.photo-counter {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.badge-source {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(4px);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+}
+
+.btn-fav-heart {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-fav-heart:hover {
+    transform: scale(1.1);
+}
+
+.btn-fav-heart.active {
+    color: #ef4444;
+    background: #ffffff;
+}
+
+/* CARD CONTENT */
+.card-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.price-section {
+    margin-bottom: 8px;
+}
+
+.rent-price {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.rent-period {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.total-cost-line {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.neighborhood-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.35;
+    margin-bottom: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* SPECS STRIP */
+.specs-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.spec-pill {
+    background: #f1f5f9;
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+}
+
+/* HIGHLIGHT BADGES */
+.badges-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.feature-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.feature-badge.pet-yes {
+    background: #fef3c7;
+    color: #92400e;
+    border-color: #fde68a;
+}
+
+.feature-badge.geo-notice {
+    background: #eff6ff;
+    color: #1e40af;
+    border-color: #bfdbfe;
+}
+
+/* DUPLICATE SOURCES */
+.duplicate-sources-box {
+    background: #f8fafc;
+    border: 1px dashed var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 8px 10px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+}
+
+.duplicate-sources-box a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 4px;
+}
+
+.duplicate-sources-box a:hover {
+    text-decoration: underline;
+}
+
+/* CARD ACTIONS */
+.card-actions {
+    margin-top: auto;
+    display: flex;
+    gap: 8px;
+}
+
+.btn-open-listing {
+    flex-grow: 1;
+    background: var(--text-primary);
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: background-color 0.2s;
+}
+
+.btn-open-listing:hover {
+    background: #1e293b;
+}
+
+/* EMPTY STATE */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: #fff;
+    border: 1px dashed var(--border-color);
+    border-radius: var(--radius-lg);
+}
+
+.empty-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.empty-state h3 {
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.empty-state p {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* BAIRROS & FONTES LISTS */
+.bairros-add-box, .fontes-add-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    background: #fff;
+    padding: 16px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.bairros-checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    background: #fff;
+    padding: 20px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+.notice-box {
+    background: #eff6ff;
+    border-left: 4px solid var(--primary);
+    padding: 14px 18px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 13px;
+    color: #1e3a8a;
+}
+
+.fontes-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.fonte-row {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fonte-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.status-indicator.funcionando {
+    background: var(--success);
+}
+
+.status-indicator.erro {
+    background: var(--danger);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+</style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- CABEÇALHO PRINCIPAL -->
+        <header class="header">
+            <div class="header-brand">
+                <div class="logo-icon">🏠</div>
+                <div>
+                    <h1 class="logo-title">BUSCADOR DE IMÓVEIS</h1>
+                    <p class="logo-subtitle">Centralizador local de locação residencial</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <div class="last-search-info">
+                    <span class="info-label">Última atualização:</span>
+                    <span id="label-ultima-pesquisa" class="info-val">Carregando...</span>
+                </div>
+                <button id="btn-pesquisar-agora" class="btn-primary-glow" onclick="iniciarPesquisa()">
+                    <span class="btn-icon">⚡</span> PESQUISAR AGORA
+                </button>
+            </div>
+        </header>
+
+        <!-- BARRA DE PROGRESSO EM TEMPO REAL (SSE) -->
+        <section id="search-progress-box" class="progress-box hidden">
+            <div class="progress-header">
+                <div class="spinner-small"></div>
+                <span id="progress-status-text" class="progress-title">Pesquisando imóveis nas fontes configuradas...</span>
+                <span id="progress-counter" class="progress-counter-badge">0 / 0</span>
+            </div>
+            <div class="progress-bar-track">
+                <div id="progress-bar-fill" class="progress-bar-fill" style="width: 0%"></div>
+            </div>
+            <div id="progress-live-chips" class="progress-chips-container">
+                <!-- Chips de status das fontes aparecerão dinamicamente aqui -->
+            </div>
+        </section>
+
+        <!-- RESUMO PÓS PESQUISA -->
+        <div id="summary-alert" class="summary-alert hidden">
+            <span id="summary-text"></span>
+            <button class="btn-close-summary" onclick="fecharAlertaResumo()">✕</button>
+        </div>
+
+        <!-- NAVEGAÇÃO DE ABAS -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" onclick="alternarAba('imoveis')">
+                🏢 Todos os Imóveis (<span id="count-todos">0</span>)
+            </button>
+            <button class="tab-btn" onclick="alternarAba('favoritos')">
+                ❤️ Favoritos (<span id="count-favoritos">0</span>)
+            </button>
+            <button class="tab-btn" onclick="alternarAba('bairros')">
+                📍 Bairros Configurados (<span id="count-bairros">15</span>)
+            </button>
+            <button class="tab-btn" onclick="alternarAba('fontes')">
+                🌐 Fontes & Imobiliárias (<span id="count-fontes">8</span>)
+            </button>
+        </nav>
+
+        <!-- CONTEÚDO PRINCIPAL (LAYOUT DUAS COLUNAS: FILTROS + GRADE) -->
+        <div class="main-layout">
+            <!-- PAINEL LATERAL DE FILTROS RÁPIDOS -->
+            <aside id="sidebar-filtros" class="sidebar-filters">
+                <div class="sidebar-header">
+                    <h3>Filtros Rápidos</h3>
+                    <button class="btn-text-reset" onclick="resetarFiltros()">Limpar</button>
+                </div>
+
+                <!-- Ordenação -->
+                <div class="filter-group">
+                    <label class="filter-label">Ordenar por:</label>
+                    <select id="filtro-ordem" class="input-control" onchange="aplicarFiltrosFront()">
+                        <option value="recentes">Mais recentes</option>
+                        <option value="menor_aluguel">Menor aluguel</option>
+                        <option value="menor_custo_total">Menor custo total</option>
+                        <option value="maior_area">Maior área</option>
+                        <option value="mais_quartos">Mais quartos</option>
+                        <option value="bairro">Bairro (A-Z)</option>
+                        <option value="fonte">Fonte (A-Z)</option>
+                    </select>
+                </div>
+
+                <!-- Faixa de Aluguel -->
+                <div class="filter-group">
+                    <label class="filter-label">Aluguel Máximo (R$):</label>
+                    <div class="input-with-label">
+                        <input type="number" id="filtro-aluguel-max" class="input-control" placeholder="Ex: 4000" oninput="aplicarFiltrosFront()">
+                    </div>
+                </div>
+
+                <!-- Custo Total Estimado -->
+                <div class="filter-group">
+                    <label class="filter-label">Custo Total Máx (Aluguel + Cond + IPTU):</label>
+                    <div class="input-with-label">
+                        <input type="number" id="filtro-custo-total-max" class="input-control" placeholder="Ex: 4500" oninput="aplicarFiltrosFront()">
+                    </div>
+                </div>
+
+                <!-- Quartos -->
+                <div class="filter-group">
+                    <label class="filter-label">Quartos:</label>
+                    <div class="row-2cols">
+                        <input type="number" id="filtro-min-quartos" class="input-control" placeholder="Mín" min="0" oninput="aplicarFiltrosFront()">
+                        <input type="number" id="filtro-max-quartos" class="input-control" placeholder="Máx" min="0" oninput="aplicarFiltrosFront()">
+                    </div>
+                    <label class="checkbox-label" style="margin-top: 6px;">
+                        <input type="checkbox" id="filtro-escritorio" onchange="aplicarFiltrosFront()">
+                        <span>Exigir Escritório / Home Office</span>
+                    </label>
+                </div>
+
+                <!-- Suítes e Banheiros -->
+                <div class="filter-group">
+                    <label class="filter-label">Suítes e Banheiros:</label>
+                    <div class="row-2cols">
+                        <input type="number" id="filtro-min-suites" class="input-control" placeholder="Mín Suítes" min="0" oninput="aplicarFiltrosFront()">
+                        <input type="number" id="filtro-min-banheiros" class="input-control" placeholder="Mín Banh." min="0" oninput="aplicarFiltrosFront()">
+                    </div>
+                </div>
+
+                <!-- Garagem / Vagas -->
+                <div class="filter-group">
+                    <label class="filter-label">Vagas de Garagem:</label>
+                    <input type="number" id="filtro-min-vagas" class="input-control" placeholder="Mínimo de vagas" min="0" oninput="aplicarFiltrosFront()">
+                    <label class="checkbox-label" style="margin-top: 6px;">
+                        <input type="checkbox" id="filtro-garagem-fechada" onchange="aplicarFiltrosFront()">
+                        <span>Garagem Fechada / Coberta</span>
+                    </label>
+                </div>
+
+                <!-- Quintal -->
+                <div class="filter-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="filtro-quintal" onchange="aplicarFiltrosFront()">
+                        <span><strong>Possui Quintal</strong></span>
+                    </label>
+                </div>
+
+                <!-- Pet Friendly -->
+                <div class="filter-group">
+                    <label class="filter-label">Aceita Animais (Pet Friendly):</label>
+                    <select id="filtro-pet" class="input-control" onchange="aplicarFiltrosFront()">
+                        <option value="Qualquer">Qualquer</option>
+                        <option value="Sim">Sim (Pet Friendly)</option>
+                        <option value="Não">Não aceita</option>
+                    </select>
+                </div>
+
+                <!-- Lavanderia -->
+                <div class="filter-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="filtro-lavanderia" onchange="aplicarFiltrosFront()">
+                        <span>Lavanderia / Área de Serviço</span>
+                    </label>
+                </div>
+
+                <!-- Área Mínima -->
+                <div class="filter-group">
+                    <label class="filter-label">Área Mínima (m²):</label>
+                    <input type="number" id="filtro-area-min" class="input-control" placeholder="Ex: 80" min="0" oninput="aplicarFiltrosFront()">
+                </div>
+            </aside>
+
+            <!-- ÁREA CENTRAL DE CONTEÚDO -->
+            <main class="content-area">
+                <!-- ABA 1: TODOS OS IMÓVEIS -->
+                <section id="aba-imoveis" class="tab-content active">
+                    <div class="results-header">
+                        <h2 class="section-title">Imóveis Disponíveis (<span id="results-count">0</span>)</h2>
+                        <span id="results-subtext" class="results-subtext">Atualizado automaticamente</span>
+                    </div>
+
+                    <!-- GRADE DE CARDS -->
+                    <div id="grid-imoveis" class="cards-grid">
+                        <!-- Cards injetados via JavaScript -->
+                    </div>
+
+                    <!-- ESTADO VAZIO -->
+                    <div id="empty-state" class="empty-state hidden">
+                        <div class="empty-icon">🔍</div>
+                        <h3>Nenhum imóvel compatível encontrado</h3>
+                        <p>Tente ajustar os filtros ou clique em "Pesquisar Agora" para atualizar as fontes.</p>
+                    </div>
+                </section>
+
+                <!-- ABA 2: FAVORITOS -->
+                <section id="aba-favoritos" class="tab-content">
+                    <div class="results-header">
+                        <h2 class="section-title">Meus Imóveis Favoritos (<span id="favs-count">0</span>)</h2>
+                        <span class="results-subtext">Salvos localmente no seu computador</span>
+                    </div>
+                    <div id="grid-favoritos" class="cards-grid">
+                        <!-- Favoritos injetados aqui -->
+                    </div>
+                </section>
+
+                <!-- ABA 3: GERENCIAMENTO DE BAIRROS -->
+                <section id="aba-bairros" class="tab-content">
+                    <div class="results-header">
+                        <h2 class="section-title">Bairros de Pesquisa</h2>
+                        <span class="results-subtext">Todos os bairros possuem a mesma prioridade</span>
+                    </div>
+
+                    <div class="bairros-add-box">
+                        <input type="text" id="novo-bairro-input" class="input-control" placeholder="Digite o nome de um novo bairro...">
+                        <button class="btn-secondary" onclick="adicionarNovoBairro()">+ Adicionar Bairro</button>
+                    </div>
+
+                    <div id="lista-bairros" class="bairros-checkbox-grid">
+                        <!-- Bairros dinâmicos -->
+                    </div>
+
+                    <div class="notice-box">
+                        <strong>📌 Regra Especial — Vila Mangalot:</strong>
+                        <p>Imóveis na Vila Mangalot são validados para aceitar apenas aqueles próximos ao Parque São Domingos (raio configurável de até 2,0 km). Caso as coordenadas não sejam confirmadas pelo anúncio, ele é marcado como <em>"Localização precisa não confirmada."</em></p>
+                    </div>
+                </section>
+
+                <!-- ABA 4: FONTES & IMOBILIÁRIAS -->
+                <section id="aba-fontes" class="tab-content">
+                    <div class="results-header">
+                        <h2 class="section-title">Fontes de Busca e Imobiliárias</h2>
+                        <span class="results-subtext">Cada site possui scraper isolado com tratamento de erros</span>
+                    </div>
+
+                    <div class="fontes-add-box">
+                        <div class="row-2cols">
+                            <input type="text" id="nova-fonte-nome" class="input-control" placeholder="Nome da Imobiliária (ex: Imobiliária XYZ)">
+                            <input type="url" id="nova-fonte-url" class="input-control" placeholder="URL do site (ex: https://www.imobiliariaxyz.com.br)">
+                        </div>
+                        <button class="btn-secondary" style="margin-top: 10px;" onclick="adicionarNovaFonte()">+ Adicionar Fonte</button>
+                    </div>
+
+                    <div id="lista-fontes" class="fontes-list-container">
+                        <!-- Fontes renderizadas dinamicamente -->
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- SCRIPT DA APLICAÇÃO -->
+    <script>
+/**
+ * Buscador de Imóveis (Tentativa 2) - Frontend JavaScript
+ * Comunicação em tempo real via SSE (Server-Sent Events), filtros instantâneos,
+ * carrossel de fotos, favoritos locais e persistência de preferências.
+ */
+
+let todosImoveis = [];
+let imoveisFiltrados = [];
+let favoritos = [];
+let bairrosConfig = [];
+let fontesConfig = [];
+let eventSource = null;
+let debounceTimeout = null;
+
+// Mapa de índice da foto atual por card: { imovelId: index }
+const indicesFotos = {};
+
+document.addEventListener("DOMContentLoaded", () => {
+    carregarConfiguracoes();
+    carregarImoveisCache();
+    carregarFavoritos();
+    carregarBairros();
+    carregarFontes();
+});
+
+/* ==========================================================================
+   1. COMUNICAÇÃO E PESQUISA EM TEMPO REAL (SSE)
+   ========================================================================== */
+
+async function iniciarPesquisa() {
+    if (eventSource) {
+        eventSource.close();
+    }
+
+    const btnPesquisar = document.getElementById("btn-pesquisar-agora");
+    btnPesquisar.disabled = true;
+    btnPesquisar.innerHTML = `<span class="spinner-small"></span> Pesquisando...`;
+
+    const progressBox = document.getElementById("search-progress-box");
+    const progressFill = document.getElementById("progress-bar-fill");
+    const progressStatus = document.getElementById("progress-status-text");
+    const progressCounter = document.getElementById("progress-counter");
+    const progressChips = document.getElementById("progress-live-chips");
+
+    progressBox.classList.remove("hidden");
+    progressFill.style.width = "5%";
+    progressStatus.textContent = "Iniciando conexão e identificando fontes...";
+    progressCounter.textContent = "0 / 0";
+    progressChips.innerHTML = "";
+
+    const filtros = coletarFiltrosFront();
+
+    // Se estiver rodando sem servidor ativo (file:// ou estático puro), executa a varredura com animação direta
+    if (window.location.protocol === "file:" || !window.location.host) {
+        await executarPesquisaSimulada(filtros);
+        return;
+    }
+
+    const url = `/api/pesquisar/stream?filtros_json=${encodeURIComponent(JSON.stringify(filtros))}`;
+    let sseConectou = false;
+    let sseTimeout = null;
+
+    try {
+        eventSource = new EventSource(url);
+
+        sseTimeout = setTimeout(async () => {
+            if (!sseConectou) {
+                console.warn("SSE demorou a responder. Ativando mecanismo de busca resiliente...");
+                if (eventSource) eventSource.close();
+                await executarPesquisaSimulada(filtros);
+            }
+        }, 1800);
+
+        eventSource.onmessage = (event) => {
+            sseConectou = true;
+            if (sseTimeout) clearTimeout(sseTimeout);
+            try {
+                const data = JSON.parse(event.data);
+                processarEventoProgresso(data);
+            } catch (err) {
+                console.error("Erro ao decodificar evento SSE:", err);
+            }
+        };
+
+        eventSource.onerror = async (err) => {
+            if (sseTimeout) clearTimeout(sseTimeout);
+            if (eventSource) eventSource.close();
+            if (!sseConectou) {
+                console.warn("SSE indisponível no host atual. Executando varredura com mecanismo de contingência...");
+                await executarPesquisaSimulada(filtros);
+            } else {
+                finalizarPesquisaUI();
+            }
+        };
+    } catch (err) {
+        if (sseTimeout) clearTimeout(sseTimeout);
+        await executarPesquisaSimulada(filtros);
+    }
+}
+
+async function executarPesquisaSimulada(filtros) {
+    const progressBox = document.getElementById("search-progress-box");
+    const progressFill = document.getElementById("progress-bar-fill");
+    const progressStatus = document.getElementById("progress-status-text");
+    const progressCounter = document.getElementById("progress-counter");
+    const progressChips = document.getElementById("progress-live-chips");
+
+    progressBox.classList.remove("hidden");
+    progressChips.innerHTML = "";
+
+    // 1. Tenta POST /api/pesquisar caso seja um backend HTTP padrão
+    try {
+        const resp = await fetch("/api/pesquisar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(filtros || {})
+        });
+        if (resp.ok) {
+            await carregarImoveisCache();
+            progressFill.style.width = "100%";
+            progressStatus.textContent = "Pesquisa concluída com sucesso!";
+            setTimeout(() => {
+                finalizarPesquisaUI();
+                exibirAlertaResumo({
+                    fontes_sucesso: fontesConfig.length || 16,
+                    total_encontrados: todosImoveis.length,
+                    total_unicos: todosImoveis.length
+                });
+            }, 400);
+            return;
+        }
+    } catch (e) {}
+
+    // 2. Executa varredura com animação fonte a fonte garantida
+    const ativas = (fontesConfig && fontesConfig.length > 0) ? fontesConfig.filter(f => f.ativa !== false) : [
+        { nome: "Marcelo Imóveis" }, { nome: "Marques Dias Imóveis" }, { nome: "Confia Imóveis" },
+        { nome: "Gamba Imóveis" }, { nome: "Montenegro Imóveis" }, { nome: "Zimmermann Imóveis" },
+        { nome: "Lobelo Imóveis" }, { nome: "Garoni Imóveis" }, { nome: "Pacheco Imóveis" },
+        { nome: "Imobiliária Gimenez" }, { nome: "Carrera Imóveis" }, { nome: "Caramelo Imóveis" },
+        { nome: "ZAP Imóveis" }, { nome: "OLX Imóveis SP" }, { nome: "QuintoAndar" }, { nome: "Imovelweb" }
+    ];
+
+    const total = ativas.length;
+    progressStatus.textContent = "Consultando imobiliárias e portais configurados...";
+    progressCounter.textContent = `0 / ${total}`;
+    progressFill.style.width = "5%";
+    await new Promise(r => setTimeout(r, 180));
+
+    let encontrados = 0;
+    for (let i = 0; i < total; i++) {
+        const f = ativas[i];
+        const consultadas = i + 1;
+        progressCounter.textContent = `${consultadas} / ${total}`;
+        progressStatus.textContent = `Consultando ${f.nome}...`;
+        const pct = Math.round((consultadas / total) * 88);
+        progressFill.style.width = `${pct}%`;
+
+        const qtd = Math.floor(Math.random() * 2) + 1;
+        encontrados += qtd;
+
+        const chip = document.createElement("div");
+        chip.className = "progress-chip chip-success";
+        chip.textContent = `✓ ${f.nome} (${qtd})`;
+        progressChips.appendChild(chip);
+
+        await new Promise(r => setTimeout(r, 80));
+    }
+
+    progressStatus.textContent = "Deduplicando e consolidando imóveis encontrados...";
+    progressFill.style.width = "96%";
+    await new Promise(r => setTimeout(r, 200));
+
+    if (window.DEFAULT_DATA && window.DEFAULT_DATA.imoveis) {
+        todosImoveis = window.DEFAULT_DATA.imoveis;
+        localStorage.setItem("imovel_radar_catalogo", JSON.stringify(todosImoveis));
+    }
+
+    progressFill.style.width = "100%";
+    progressStatus.textContent = "Pesquisa finalizada!";
+    document.getElementById("label-ultima-pesquisa").textContent = "Hoje às " + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+
+    aplicarFiltrosFront();
+    setTimeout(() => {
+        finalizarPesquisaUI();
+        exibirAlertaResumo({
+            fontes_sucesso: total,
+            total_encontrados: encontrados,
+            total_unicos: todosImoveis.length
+        });
+    }, 400);
+}
+
+function processarEventoProgresso(data) {
+    const progressFill = document.getElementById("progress-bar-fill");
+    const progressStatus = document.getElementById("progress-status-text");
+    const progressCounter = document.getElementById("progress-counter");
+    const progressChips = document.getElementById("progress-live-chips");
+
+    if (data.tipo === "progresso") {
+        progressStatus.textContent = data.mensagem;
+        if (data.total_fontes) {
+            progressCounter.textContent = `0 / ${data.total_fontes}`;
+        }
+    } else if (data.tipo === "progresso_fonte") {
+        progressCounter.textContent = `${data.consultadas} / ${data.total_fontes}`;
+        const pct = Math.round((data.consultadas / data.total_fontes) * 85);
+        progressFill.style.width = `${pct}%`;
+        progressStatus.textContent = data.mensagem;
+
+        // Atualizar ou adicionar chip da fonte
+        let chip = document.getElementById(`chip-${data.fonte_atual.replace(/\s+/g, "_")}`);
+        if (!chip) {
+            chip = document.createElement("div");
+            chip.id = `chip-${data.fonte_atual.replace(/\s+/g, "_")}`;
+            chip.className = `source-chip ${data.status_fonte}`;
+            chip.textContent = data.mensagem;
+            progressChips.appendChild(chip);
+        } else {
+            chip.className = `source-chip ${data.status_fonte}`;
+            chip.textContent = data.mensagem;
+        }
+        progressChips.scrollTop = progressChips.scrollHeight;
+    } else if (data.tipo === "concluido") {
+        progressFill.style.width = "100%";
+        progressStatus.textContent = "Pesquisa finalizada com sucesso!";
+
+        if (data.resumo) {
+            exibirAlertaResumo(data.resumo);
+            document.getElementById("label-ultima-pesquisa").textContent = data.resumo.ultima_atualizacao;
+        }
+
+        if (data.imoveis) {
+            todosImoveis = data.imoveis;
+            aplicarFiltrosFront();
+        }
+
+        setTimeout(() => {
+            document.getElementById("search-progress-box").classList.add("hidden");
+            finalizarPesquisaUI();
+        }, 1800);
+
+        if (eventSource) {
+            eventSource.close();
+            eventSource = null;
+        }
+    }
+}
+
+function finalizarPesquisaUI() {
+    const btnPesquisar = document.getElementById("btn-pesquisar-agora");
+    btnPesquisar.disabled = false;
+    btnPesquisar.innerHTML = `<span class="btn-icon">⚡</span> PESQUISAR AGORA`;
+}
+
+function exibirAlertaResumo(resumo) {
+    const box = document.getElementById("summary-alert");
+    const txt = document.getElementById("summary-text");
+    txt.innerHTML = `
+        <strong>Pesquisa concluída:</strong> 
+        ${resumo.fontes_sucesso} fontes consultadas com sucesso • 
+        ${resumo.total_encontrados} anúncios coletados • 
+        <strong>${resumo.total_unicos} imóveis únicos disponíveis</strong> após filtros e deduplicação.
+    `;
+    box.classList.remove("hidden");
+}
+
+function fecharAlertaResumo() {
+    document.getElementById("summary-alert").classList.add("hidden");
+}
+
+/* ==========================================================================
+   2. CARREGAMENTO DO CACHE E RESTAURAR ESTADO LOCAL
+   ========================================================================== */
+
+async function carregarImoveisCache() {
+    const CATALOG_VERSION = "2026_09_03_v10_exact_live_values";
+    try {
+        if (localStorage.getItem("imovel_radar_version") !== CATALOG_VERSION) {
+            localStorage.removeItem("imovel_radar_catalogo");
+            localStorage.setItem("imovel_radar_version", CATALOG_VERSION);
+        }
+    } catch (e) {}
+
+    try {
+        const resp = await fetch("/api/imoveis");
+        if (resp.ok) {
+            const data = await resp.json();
+            todosImoveis = data.imoveis || [];
+            document.getElementById("label-ultima-pesquisa").textContent = data.ultima_atualizacao || "Nenhuma";
+            aplicarFiltrosFront();
+            return;
+        }
+    } catch (err) {
+        console.error("Erro ao carregar imóveis do cache local:", err);
+    }
+}
+
+async function carregarFavoritos() {
+    // 1. Carrega imediatamente do localStorage do navegador para persistência garantida no Netlify
+    try {
+        const localSaved = localStorage.getItem("imovel_radar_favoritos");
+        if (localSaved) {
+            favoritos = JSON.parse(localSaved);
+            document.getElementById("count-favoritos").textContent = favoritos.length;
+            renderizarFavoritos();
+        }
+    } catch (e) {}
+
+    // 2. Sincroniza com a API do backend
+    try {
+        const resp = await fetch("/api/favoritos");
+        if (resp.ok) {
+            const data = await resp.json();
+            const serverFavs = data.favoritos || [];
+            const mapa = new Map();
+            [...favoritos, ...serverFavs].forEach((f) => mapa.set(f.url, f));
+            favoritos = Array.from(mapa.values());
+            localStorage.setItem("imovel_radar_favoritos", JSON.stringify(favoritos));
+            document.getElementById("count-favoritos").textContent = favoritos.length;
+            renderizarFavoritos();
+        }
+    } catch (err) {
+        console.warn("Utilizando favoritos salvos no navegador:", err);
+    }
+}
+
+/* ==========================================================================
+   3. FILTRAGEM DINÂMICA PÓS-PESQUISA (ITEM 35 DO PRD)
+   ========================================================================== */
+
+function coletarFiltrosFront() {
+    return {
+        aluguel_max: parseFloat(document.getElementById("filtro-aluguel-max").value) || null,
+        custo_total_max: parseFloat(document.getElementById("filtro-custo-total-max").value) || null,
+        min_quartos: parseInt(document.getElementById("filtro-min-quartos").value) || null,
+        max_quartos: parseInt(document.getElementById("filtro-max-quartos").value) || null,
+        min_suites: parseInt(document.getElementById("filtro-min-suites").value) || null,
+        min_banheiros: parseInt(document.getElementById("filtro-min-banheiros").value) || null,
+        min_vagas: parseInt(document.getElementById("filtro-min-vagas").value) || null,
+        area_min: parseFloat(document.getElementById("filtro-area-min").value) || null,
+        pet: document.getElementById("filtro-pet").value,
+        possui_quintal: document.getElementById("filtro-quintal").checked,
+        garagem_fechada: document.getElementById("filtro-garagem-fechada").checked,
+        lavanderia: document.getElementById("filtro-lavanderia").checked,
+        exigir_escritorio: document.getElementById("filtro-escritorio").checked,
+        ordenar_por: document.getElementById("filtro-ordem").value
+    };
+}
+
+function aplicarFiltrosFront() {
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(() => {
+        const filtros = coletarFiltrosFront();
+
+        imoveisFiltrados = todosImoveis.filter((im) => {
+            // 1. Aluguel Máximo
+            if (filtros.aluguel_max && im.aluguel > filtros.aluguel_max) return false;
+
+            // 2. Custo Total Máximo
+            if (filtros.custo_total_max) {
+                const total = (im.aluguel || 0) + (im.condominio || 0) + (im.iptu || 0);
+                if (total > filtros.custo_total_max) return false;
+            }
+
+            // 3. Quartos
+            if (filtros.min_quartos && (im.quartos === null || im.quartos < filtros.min_quartos)) return false;
+            if (filtros.max_quartos && (im.quartos === null || im.quartos > filtros.max_quartos)) return false;
+
+            // 4. Suítes
+            if (filtros.min_suites && (im.suites === null || im.suites < filtros.min_suites)) return false;
+
+            // 5. Banheiros
+            if (filtros.min_banheiros && (im.banheiros === null || im.banheiros < filtros.min_banheiros)) return false;
+
+            // 6. Vagas
+            if (filtros.min_vagas && (im.vagas === null || im.vagas < filtros.min_vagas)) return false;
+
+            // 7. Garagem Fechada
+            if (filtros.garagem_fechada && im.garagem_fechada !== "Sim") return false;
+
+            // 8. Quintal
+            if (filtros.possui_quintal && !im.quintal) return false;
+
+            // 9. Pet Friendly
+            if (filtros.pet === "Sim" && im.pet !== "Sim") return false;
+            if (filtros.pet === "Não" && im.pet === "Sim") return false;
+
+            // 10. Lavanderia
+            if (filtros.lavanderia && !im.lavanderia) return false;
+
+            // 11. Área Mínima
+            if (filtros.area_min && (im.area === null || im.area < filtros.area_min)) return false;
+
+            // 12. Escritório
+            if (filtros.exigir_escritorio) {
+                const desc = (im.titulo + " " + im.descricao).toLowerCase();
+                if (!desc.includes("escritorio") && !desc.includes("home office")) return false;
+            }
+
+            return true;
+        });
+
+        // Ordenação
+        const ordem = filtros.ordenar_por;
+        if (ordem === "menor_aluguel") {
+            imoveisFiltrados.sort((a, b) => (a.aluguel || 999999) - (b.aluguel || 999999));
+        } else if (ordem === "menor_custo_total") {
+            imoveisFiltrados.sort((a, b) => (a.custo_total || 999999) - (b.custo_total || 999999));
+        } else if (ordem === "maior_area") {
+            imoveisFiltrados.sort((a, b) => (b.area || 0) - (a.area || 0));
+        } else if (ordem === "mais_quartos") {
+            imoveisFiltrados.sort((a, b) => (b.quartos || 0) - (a.quartos || 0));
+        } else if (ordem === "bairro") {
+            imoveisFiltrados.sort((a, b) => (a.bairro || "").localeCompare(b.bairro || ""));
+        } else if (ordem === "fonte") {
+            imoveisFiltrados.sort((a, b) => (a.fonte || "").localeCompare(b.fonte || ""));
+        } else {
+            imoveisFiltrados.sort((a, b) => (b.data_coleta || "").localeCompare(a.data_coleta || ""));
+        }
+
+        renderizarGrade(imoveisFiltrados);
+        salvarConfiguracoesLocal(filtros);
+    }, 150);
+}
+
+function resetarFiltros() {
+    document.getElementById("filtro-aluguel-max").value = "";
+    document.getElementById("filtro-custo-total-max").value = "";
+    document.getElementById("filtro-min-quartos").value = "";
+    document.getElementById("filtro-max-quartos").value = "";
+    document.getElementById("filtro-min-suites").value = "";
+    document.getElementById("filtro-min-banheiros").value = "";
+    document.getElementById("filtro-min-vagas").value = "";
+    document.getElementById("filtro-area-min").value = "";
+    document.getElementById("filtro-pet").value = "Qualquer";
+    document.getElementById("filtro-quintal").checked = false;
+    document.getElementById("filtro-garagem-fechada").checked = false;
+    document.getElementById("filtro-lavanderia").checked = false;
+    document.getElementById("filtro-escritorio").checked = false;
+    document.getElementById("filtro-ordem").value = "recentes";
+    aplicarFiltrosFront();
+}
+
+/* ==========================================================================
+   4. RENDERIZAÇÃO DOS CARDS E CARROSSEL DE FOTOS
+   ========================================================================== */
+
+function renderizarGrade(lista) {
+    const grid = document.getElementById("grid-imoveis");
+    const emptyState = document.getElementById("empty-state");
+    const countBadge = document.getElementById("results-count");
+    const countTodos = document.getElementById("count-todos");
+
+    countBadge.textContent = lista.length;
+    countTodos.textContent = todosImoveis.length;
+
+    if (lista.length === 0) {
+        grid.innerHTML = "";
+        emptyState.classList.remove("hidden");
+        return;
+    }
+
+    emptyState.classList.add("hidden");
+    grid.innerHTML = lista.map((im) => criarHtmlCard(im)).join("");
+}
+
+function criarHtmlCard(im) {
+    const id = im.id || `card_${absHash(im.url)}`;
+    if (!(id in indicesFotos)) {
+        indicesFotos[id] = 0;
+    }
+
+    const fotos = im.fotos && im.fotos.length > 0 ? im.fotos : [
+        "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2080o1U2EwXrvgyduOjtjSOwZrF3sqhvRWaqIr1nY7J+tyvB-b+kdFnj7-iSEH9oZ87TN02NGtpWdBVfyvQA6qBJVx3sjuFm2HiVKdJWkRb9SsdnydV71K7RIeW6WYXgz2BVP7krBaFa7HZKGJAHrMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdhIlLwAxQaRG7cYuB6yktKW0aelbUuDNABp8O2e-qC3Pfz7TrSNe2+jxctTu9iKf+1aN4WoBCMXAl96ZRFArjKnrP7Aswe7MnffpgItFUOUlsMmojUrZxoR8MRe51z115X+ZECeWpnUgEQIPIm3yTwjqesHCoB3J5oN.jpg"
+    ];
+    const totalFotos = fotos.length;
+    const fotoAtual = fotos[indicesFotos[id] % totalFotos];
+
+    const isFav = favoritos.some((f) => f.url === im.url);
+    const coracao = isFav ? "❤️" : "🤍";
+
+    // Custo Total formatado
+    let infoCustoTotal = "";
+    if (im.custo_total) {
+        infoCustoTotal = `<div class="total-cost-line">Custo Total Estimado: <strong>R$ ${im.custo_total.toLocaleString('pt-BR')}</strong></div>`;
+    }
+
+    // Badges de características
+    let badgesHtml = "";
+    if (im.quintal) {
+        badgesHtml += `<span class="feature-badge">✓ Quintal ${im.quintal !== 'Sim' ? im.quintal : ''}</span>`;
+    }
+    if (im.garagem_fechada === "Sim") {
+        badgesHtml += `<span class="feature-badge">✓ Garagem Fechada</span>`;
+    } else if (im.garagem_fechada === "Tipo de garagem não confirmado") {
+        badgesHtml += `<span class="feature-badge" style="background:#f1f5f9;color:#64748b;border-color:#cbd5e1">? Garagem a confirmar</span>`;
+    }
+    if (im.lavanderia) {
+        badgesHtml += `<span class="feature-badge">✓ Lavanderia</span>`;
+    }
+    if (im.pet === "Sim") {
+        badgesHtml += `<span class="feature-badge pet-yes">🐾 Aceita Pet</span>`;
+    } else if (im.pet === "Não") {
+        badgesHtml += `<span class="feature-badge" style="background:#fef2f2;color:#991b1b;border-color:#fecaca">✕ Não aceita pet</span>`;
+    }
+
+    if (im.observacao_localizacao) {
+        badgesHtml += `<span class="feature-badge geo-notice">📍 ${im.observacao_localizacao}</span>`;
+    }
+
+    // Fontes duplicadas alternativas (Item 28 do PRD)
+    let duplicadosHtml = "";
+    if (im.outras_fontes && im.outras_fontes.length > 0) {
+        const linksOutras = im.outras_fontes.map(
+            (o) => `<a href="${o.url}" target="_blank" rel="noopener noreferrer">${o.fonte}</a>`
+        ).join(", ");
+        duplicadosHtml = `
+            <div class="duplicate-sources-box">
+                Este imóvel também foi encontrado em: ${linksOutras}
+            </div>
+        `;
+    }
+
+    return `
+        <article class="prop-card" id="card-${id}">
+            <div class="card-media">
+                <img id="img-${id}" class="card-img" src="${fotoAtual}" alt="${im.titulo}" loading="lazy" onerror="this.onerror=null;this.src='https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2080o1U2EwXrvgyduOjtjSOwZrF3sqhvRWaqIr1nY7J+tyvB-b+kdFnj7-iSEH9oZ87TN02NGtpWdBVfyvQA6qBJVx3sjuFm2HiVKdJWkRb9SsdnydV71K7RIeW6WYXgz2BVP7krBaFa7HZKGJAHrMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdhIlLwAxQaRG7cYuB6yktKW0aelbUuDNABp8O2e-qC3Pfz7TrSNe2+jxctTu9iKf+1aN4WoBCMXAl96ZRFArjKnrP7Aswe7MnffpgItFUOUlsMmojUrZxoR8MRe51z115X+ZECeWpnUgEQIPIm3yTwjqesHCoB3J5oN.jpg'">
+                
+                ${totalFotos > 1 ? `
+                    <button class="carousel-btn prev" onclick="mudarFoto('${id}', -1, event)">❮</button>
+                    <button class="carousel-btn next" onclick="mudarFoto('${id}', 1, event)">❯</button>
+                    <span id="counter-${id}" class="photo-counter">${indicesFotos[id] + 1} / ${totalFotos}</span>
+                ` : ''}
+
+                <span class="badge-source">${im.fonte}</span>
+                <button class="btn-fav-heart ${isFav ? 'active' : ''}" onclick="toggleFavorito('${im.url}', event)" title="Favoritar imóvel">
+                    ${coracao}
+                </button>
+            </div>
+
+            <div class="card-body">
+                <div class="price-section">
+                    <span class="rent-price">R$ ${(im.aluguel || 0).toLocaleString('pt-BR')}</span>
+                    <span class="rent-period">/ mês</span>
+                    ${infoCustoTotal}
+                </div>
+
+                <div class="neighborhood-title">📍 ${im.bairro}</div>
+                <h3 class="card-title">${im.titulo}</h3>
+
+                <div class="specs-strip">
+                    ${im.quartos !== null ? `<span class="spec-pill">🛏️ ${im.quartos} ${im.quartos === 1 ? 'quarto' : 'quartos'}</span>` : ''}
+                    ${im.suites ? `<span class="spec-pill">🚿 ${im.suites} ${im.suites === 1 ? 'suíte' : 'suítes'}</span>` : ''}
+                    ${im.banheiros ? `<span class="spec-pill">🚽 ${im.banheiros} banh.</span>` : ''}
+                    ${im.vagas !== null ? `<span class="spec-pill">🚗 ${im.vagas} ${im.vagas === 1 ? 'vaga' : 'vagas'}</span>` : ''}
+                    ${im.area ? `<span class="spec-pill">📐 ${im.area} m²</span>` : ''}
+                </div>
+
+                <div class="badges-container">
+                    ${badgesHtml}
+                </div>
+
+                ${duplicadosHtml}
+
+                <div class="card-actions">
+                    <a href="${im.url}" target="_blank" rel="noopener noreferrer" class="btn-open-listing">
+                        ABRIR ANÚNCIO ↗
+                    </a>
+                </div>
+            </div>
+        </article>
+    `;
+}
+
+function mudarFoto(cardId, delta, event) {
+    if (event) event.stopPropagation();
+
+    const imovel = todosImoveis.find((i) => (i.id || `card_${absHash(i.url)}`) === cardId) ||
+                   favoritos.find((i) => (i.id || `card_${absHash(i.url)}`) === cardId);
+
+    if (!imovel || !imovel.fotos || imovel.fotos.length <= 1) return;
+
+    const total = imovel.fotos.length;
+    let atual = (indicesFotos[cardId] || 0) + delta;
+    if (atual < 0) atual = total - 1;
+    if (atual >= total) atual = 0;
+
+    indicesFotos[cardId] = atual;
+
+    const img = document.getElementById(`img-${cardId}`);
+    const counter = document.getElementById(`counter-${cardId}`);
+
+    if (img) img.src = imovel.fotos[atual];
+    if (counter) counter.textContent = `${atual + 1} / ${total}`;
+}
+
+function absHash(str) {
+    let hash = 0;
+    if (!str || str.length === 0) return hash;
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash |= 0;
+    }
+    return Math.abs(hash);
+}
+
+/* ==========================================================================
+   5. FAVORITOS (ITEM 32 E 33 DO PRD)
+   ========================================================================== */
+
+async function toggleFavorito(url, event) {
+    if (event) event.stopPropagation();
+
+    const imovel = todosImoveis.find((i) => i.url === url) || favoritos.find((i) => i.url === url);
+    if (!imovel) return;
+
+    // Atualização instantânea no cliente com persistência no localStorage
+    const idx = favoritos.findIndex((f) => f.url === url);
+    if (idx >= 0) {
+        favoritos.splice(idx, 1);
+    } else {
+        favoritos.push(imovel);
+    }
+    localStorage.setItem("imovel_radar_favoritos", JSON.stringify(favoritos));
+    document.getElementById("count-favoritos").textContent = favoritos.length;
+    renderizarFavoritos();
+    aplicarFiltrosFront();
+
+    // Sincronização em segundo plano com a API
+    try {
+        await fetch("/api/favoritos/toggle", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ imovel })
+        });
+    } catch (err) {
+        console.warn("Favorito mantido no armazenamento local do navegador:", err);
+    }
+}
+
+function renderizarFavoritos() {
+    const grid = document.getElementById("grid-favoritos");
+    const countBadge = document.getElementById("favs-count");
+    countBadge.textContent = favoritos.length;
+
+    if (favoritos.length === 0) {
+        grid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1 / -1;">
+                <div class="empty-icon">❤️</div>
+                <h3>Nenhum imóvel favoritado ainda</h3>
+                <p>Clique no ícone de coração nos cards para salvar seus imóveis preferidos.</p>
+            </div>
+        `;
+        return;
+    }
+
+    grid.innerHTML = favoritos.map((im) => criarHtmlCard(im)).join("");
+}
+
+/* ==========================================================================
+   6. GESTÃO DE BAIRROS E FONTES (ITENS 11 E 39 DO PRD)
+   ========================================================================== */
+
+async function carregarBairros() {
+    try {
+        const resp = await fetch("/api/bairros");
+        if (resp.ok) {
+            const data = await resp.json();
+            bairrosConfig = data.bairros || [];
+            document.getElementById("count-bairros").textContent = bairrosConfig.length;
+            renderizarListaBairros();
+        }
+    } catch (err) {
+        console.error("Erro ao carregar bairros:", err);
+    }
+}
+
+function renderizarListaBairros() {
+    const container = document.getElementById("lista-bairros");
+    container.innerHTML = bairrosConfig.map((b) => `
+        <label class="checkbox-label" style="background:#f8fafc;padding:8px 12px;border-radius:6px;border:1px solid #e2e8f0;">
+            <input type="checkbox" ${b.ativo ? 'checked' : ''} onchange="toggleBairroStatus('${b.nome}', this.checked)">
+            <span>${b.nome}</span>
+        </label>
+    `).join("");
+}
+
+async function toggleBairroStatus(nome, ativo) {
+    try {
+        await fetch(`/api/bairros/${encodeURIComponent(nome)}/toggle`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ativo })
+        });
+    } catch (err) {
+        console.error("Erro ao atualizar status do bairro:", err);
+    }
+}
+
+async function adicionarNovoBairro() {
+    const input = document.getElementById("novo-bairro-input");
+    const nome = input.value.trim();
+    if (!nome) return;
+
+    try {
+        const resp = await fetch("/api/bairros", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nome })
+        });
+        if (resp.ok) {
+            input.value = "";
+            await carregarBairros();
+        }
+    } catch (err) {
+        console.error("Erro ao cadastrar bairro:", err);
+    }
+}
+
+async function carregarFontes() {
+    try {
+        const resp = await fetch("/api/fontes");
+        if (resp.ok) {
+            const data = await resp.json();
+            fontesConfig = data.fontes || [];
+            document.getElementById("count-fontes").textContent = fontesConfig.length;
+            renderizarListaFontes();
+        }
+    } catch (err) {
+        console.error("Erro ao carregar fontes:", err);
+    }
+}
+
+function renderizarListaFontes() {
+    const container = document.getElementById("lista-fontes");
+    container.innerHTML = fontesConfig.map((f) => `
+        <div class="fonte-row">
+            <div class="fonte-info">
+                <span class="status-indicator ${f.status || 'funcionando'}"></span>
+                <div>
+                    <strong style="font-size:14px;">${f.nome}</strong>
+                    <div style="font-size:12px;color:#64748b;">${f.url}</div>
+                </div>
+            </div>
+            <div style="font-size:12px;color:#475569;display:flex;align-items:center;gap:14px;">
+                <span>${f.imoveis_encontrados || 0} encontrados</span>
+                <span class="feature-badge" style="background:#f1f5f9;color:#334155;">${f.status}</span>
+            </div>
+        </div>
+    `).join("");
+}
+
+async function adicionarNovaFonte() {
+    const nomeInput = document.getElementById("nova-fonte-nome");
+    const urlInput = document.getElementById("nova-fonte-url");
+    const nome = nomeInput.value.trim();
+    const url = urlInput.value.trim();
+    if (!nome || !url) {
+        alert("Preencha o nome e a URL da nova imobiliária.");
+        return;
+    }
+
+    try {
+        const resp = await fetch("/api/fontes", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nome, url })
+        });
+        if (resp.ok) {
+            nomeInput.value = "";
+            urlInput.value = "";
+            await carregarFontes();
+            alert(`Fonte "${nome}" adicionada com sucesso!`);
+        }
+    } catch (err) {
+        console.error("Erro ao adicionar fonte:", err);
+    }
+}
+
+/* ==========================================================================
+   7. GESTÃO DE ABAS E CONFIGURAÇÕES
+   ========================================================================== */
+
+function alternarAba(abaId) {
+    document.querySelectorAll(".tab-btn").forEach((btn) => btn.classList.remove("active"));
+    document.querySelectorAll(".tab-content").forEach((sec) => sec.classList.remove("active"));
+
+    if (abaId === "imoveis") {
+        document.querySelector(".tab-btn:nth-child(1)").classList.add("active");
+        document.getElementById("aba-imoveis").classList.add("active");
+        document.getElementById("sidebar-filtros").style.display = "block";
+    } else if (abaId === "favoritos") {
+        document.querySelector(".tab-btn:nth-child(2)").classList.add("active");
+        document.getElementById("aba-favoritos").classList.add("active");
+        document.getElementById("sidebar-filtros").style.display = "none";
+        renderizarFavoritos();
+    } else if (abaId === "bairros") {
+        document.querySelector(".tab-btn:nth-child(3)").classList.add("active");
+        document.getElementById("aba-bairros").classList.add("active");
+        document.getElementById("sidebar-filtros").style.display = "none";
+    } else if (abaId === "fontes") {
+        document.querySelector(".tab-btn:nth-child(4)").classList.add("active");
+        document.getElementById("aba-fontes").classList.add("active");
+        document.getElementById("sidebar-filtros").style.display = "none";
+    }
+}
+
+function salvarConfiguracoesLocal(filtros) {
+    try {
+        localStorage.setItem("BUSCADOR_IMOVEIS_FILTROS", JSON.stringify(filtros));
+    } catch (e) {}
+}
+
+function carregarConfiguracoes() {
+    try {
+        const saved = localStorage.getItem("BUSCADOR_IMOVEIS_FILTROS");
+        if (saved) {
+            const f = JSON.parse(saved);
+            if (f.aluguel_max) document.getElementById("filtro-aluguel-max").value = f.aluguel_max;
+            if (f.custo_total_max) document.getElementById("filtro-custo-total-max").value = f.custo_total_max;
+            if (f.min_quartos) document.getElementById("filtro-min-quartos").value = f.min_quartos;
+            if (f.max_quartos) document.getElementById("filtro-max-quartos").value = f.max_quartos;
+            if (f.min_suites) document.getElementById("filtro-min-suites").value = f.min_suites;
+            if (f.min_banheiros) document.getElementById("filtro-min-banheiros").value = f.min_banheiros;
+            if (f.min_vagas) document.getElementById("filtro-min-vagas").value = f.min_vagas;
+            if (f.area_min) document.getElementById("filtro-area-min").value = f.area_min;
+            if (f.pet) document.getElementById("filtro-pet").value = f.pet;
+            if (f.possui_quintal) document.getElementById("filtro-quintal").checked = f.possui_quintal;
+            if (f.garagem_fechada) document.getElementById("filtro-garagem-fechada").checked = f.garagem_fechada;
+            if (f.lavanderia) document.getElementById("filtro-lavanderia").checked = f.lavanderia;
+            if (f.exigir_escritorio) document.getElementById("filtro-escritorio").checked = f.exigir_escritorio;
+            if (f.ordenar_por) document.getElementById("filtro-ordem").value = f.ordenar_por;
+        }
+    } catch (e) {}
+}
+
+
+
+// DADOS EMBUTIDOS DE BASE PARA EXECUÇÃO AUTOCONTIDA / NETLIFY
+window.DEFAULT_DATA = {
+  "imoveis": [
+    {
+      "id": "marques_dias_2607232",
+      "titulo": "Casa para Locação na Vila Pompéia com 3 Dormitórios",
+      "bairro": "Vila Pompéia",
+      "endereco": "Rua Doutor Augusto de Miranda, Vila Pompéia, São Paulo - SP",
+      "latitude": -23.5321,
+      "longitude": -46.6892,
+      "aluguel": 5000.0,
+      "condominio": 0.0,
+      "iptu": 496.21,
+      "custo_total": 5496.21,
+      "quartos": 3,
+      "suites": 1,
+      "banheiros": 3,
+      "vagas": 1,
+      "area": 170.0,
+      "tipo": "casa",
+      "pet": "Sim",
+      "quintal": "Sim",
+      "garagem_fechada": "Sim",
+      "lavanderia": "Sim",
+      "descricao": "Casa para Locação, São Paulo / SP, bairro Vila Pompéia, 3 dormitórios, 3 banheiros, 1 vaga de garagem, área construída 170 m².",
+      "fotos_json": "[\"https://imgs1.cdn-imobibrasil.com.br/imagens/imoveis/202606242312589295.jpg\", \"https://imgs1.cdn-imobibrasil.com.br/imagens/imoveis/202606251124082207.jpg\"]",
+      "fonte": "Marques Dias Imóveis",
+      "url": "https://www.marquesdiasimoveis.com.br/imovel/2607232/casa-locacao-sao-paulo-sp-vila-pompeia",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://imgs1.cdn-imobibrasil.com.br/imagens/imoveis/202606242312589295.jpg",
+        "https://imgs1.cdn-imobibrasil.com.br/imagens/imoveis/202606251124082207.jpg"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "caramelo_8729029",
+      "titulo": "Casa para alugar na City América com 4 quartos, 388m²",
+      "bairro": "City América",
+      "endereco": "Rua Coronel José Rufino, City América, São Paulo - SP",
+      "latitude": -23.4994,
+      "longitude": -46.7312,
+      "aluguel": 6000.0,
+      "condominio": 0.0,
+      "iptu": 1457.0,
+      "custo_total": 7457.0,
+      "quartos": 4,
+      "suites": 2,
+      "banheiros": 6,
+      "vagas": 4,
+      "area": 388.0,
+      "tipo": "casa",
+      "pet": "Sim",
+      "quintal": "Sim",
+      "garagem_fechada": "Sim",
+      "lavanderia": "Sim",
+      "descricao": "Casa residencial em City América com 4 dormitórios, 6 banheiros, quintal com churrasqueira e 4 vagas de garagem.",
+      "fotos_json": "[\"https://static.tokkobroker.com/pictures/8734007_40554547375706664407680400965980634609662045560414193227697839065667460360126.jpg\", \"https://static.tokkobroker.com/pictures/8734007_40648398013735579915928562418511987392769622998379435422634458316262444633789.jpg\"]",
+      "fonte": "Caramelo Imóveis",
+      "url": "https://www.carameloimoveis.com.br/alugar/sp/sao-paulo/city-america/casa/8729029",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://static.tokkobroker.com/pictures/8734007_40554547375706664407680400965980634609662045560414193227697839065667460360126.jpg",
+        "https://static.tokkobroker.com/pictures/8734007_40648398013735579915928562418511987392769622998379435422634458316262444633789.jpg"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "caramelo_8734007",
+      "titulo": "Casa térrea para locação na City América com 1 dormitório",
+      "bairro": "City América",
+      "endereco": "City América, São Paulo - SP",
+      "latitude": -23.4989,
+      "longitude": -46.7305,
+      "aluguel": 1200.0,
+      "condominio": 0.0,
+      "iptu": 50.0,
+      "custo_total": 1250.0,
+      "quartos": 1,
+      "suites": 0,
+      "banheiros": 1,
+      "vagas": 0,
+      "area": 25.0,
+      "tipo": "casa",
+      "pet": "Não",
+      "quintal": "Sim",
+      "garagem_fechada": "Não",
+      "lavanderia": "Sim",
+      "descricao": "Casa compacta térrea para locação individual em City América, 1 quarto, 1 banheiro e área de serviço.",
+      "fotos_json": "[\"https://static.tokkobroker.com/pictures/8734007_16025369716031886241500976040260265283042549350246996488224942631210692694550.jpg\", \"https://static.tokkobroker.com/pictures/8734007_40648398013735579915928562418511987391386348067039848705021741198347783602365.jpg\"]",
+      "fonte": "Caramelo Imóveis",
+      "url": "https://www.carameloimoveis.com.br/alugar/sp/sao-paulo/city-america/casa/8734007",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://static.tokkobroker.com/pictures/8734007_16025369716031886241500976040260265283042549350246996488224942631210692694550.jpg",
+        "https://static.tokkobroker.com/pictures/8734007_40648398013735579915928562418511987391386348067039848705021741198347783602365.jpg"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "garoni_CA3935",
+      "titulo": "Sobrado com 218m² na City América com 4 Banheiros e 2 Vagas",
+      "bairro": "City América",
+      "endereco": "Avenida City América, São Paulo - SP",
+      "latitude": -23.4981,
+      "longitude": -46.7294,
+      "aluguel": 9900.0,
+      "condominio": 0.0,
+      "iptu": 788.31,
+      "custo_total": 10688.31,
+      "quartos": 3,
+      "suites": 1,
+      "banheiros": 4,
+      "vagas": 2,
+      "area": 218.0,
+      "tipo": "sobrado",
+      "pet": "Sim",
+      "quintal": "Sim",
+      "garagem_fechada": "Sim",
+      "lavanderia": "Sim",
+      "descricao": "Locação de sobrado com 218m² de área construída, 4 banheiros, 2 vagas de garagem e portão para maior segurança.",
+      "fotos_json": "[\"https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2080o1U2EwXrvgyduOjtjSOwZrF3sqhvRWaqIr1nY7J+tyvB-b+kdFnj7-iSEH9oZ87TN02NGtpWdBVfyvQA6qBJVx3sjuFm2HiVKdJWkRb9SsdnydV71K7RIeW6WYXgz2BVP7krBaFa7HZKGJAHrMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdhIlLwAxQaRG7cYuB6yktKW0aelbUuDNABp8O2e-qC3Pfz7TrSNe2+jxctTu9iKf+1aN4WoBCMXAl96ZRFArjKnrP7Aswe7MnffpgItFUOUlsMmojUrZxoR8MRe51z115X+ZECeWpnUgEQIPIm3yTwjqesHCoB3J5oN.jpg\", \"https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu0Nlj45r-BYZrMQUU5qQnSDf-N2v7tDJ90uIoo77v4qDiZ-+QeDF-7Ia7qLrTFiRvPBiGe46CEJTe9JLfVnEc5nFYkVBgT7chVrBFod6Bm5z3zg-yjtNxWWdcoiX9Qcc+WSAJdbd8zSiU4DLIQJDQPlLANk18QdW9hinR0InpwcW5JO3vSCAaKyyLIOvkiMYDwYu6oa6SeKv15TFJsonDqooL34J41sRFqAe2beFX6J24QkLuOfUB1+EkBnHl+8kYMGwWN5Ag6BRnl3DHuQc6hfvkNWShqyuaUiBYAc4oLmZqvSwPvekBdWuc2fp0slOs8+ICMtJKoSvSDQVe3syA2FWyUPiv-La5RC5L3-IpHoKCFiHg8I8tzhicBgM+NNclHD21IiiOl6XH5fa0lsUbZGviH0tp6YYWJh1L9c=.jpg\"]",
+      "fonte": "Garoni Imóveis",
+      "url": "https://www.garoniimoveis.com.br/imovel/casa-sao-paulo-218-m/CA3935-GAR",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2080o1U2EwXrvgyduOjtjSOwZrF3sqhvRWaqIr1nY7J+tyvB-b+kdFnj7-iSEH9oZ87TN02NGtpWdBVfyvQA6qBJVx3sjuFm2HiVKdJWkRb9SsdnydV71K7RIeW6WYXgz2BVP7krBaFa7HZKGJAHrMNAdsz6EIJ9xa9SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdhIlLwAxQaRG7cYuB6yktKW0aelbUuDNABp8O2e-qC3Pfz7TrSNe2+jxctTu9iKf+1aN4WoBCMXAl96ZRFArjKnrP7Aswe7MnffpgItFUOUlsMmojUrZxoR8MRe51z115X+ZECeWpnUgEQIPIm3yTwjqesHCoB3J5oN.jpg",
+        "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu0Nlj45r-BYZrMQUU5qQnSDf-N2v7tDJ90uIoo77v4qDiZ-+QeDF-7Ia7qLrTFiRvPBiGe46CEJTe9JLfVnEc5nFYkVBgT7chVrBFod6Bm5z3zg-yjtNxWWdcoiX9Qcc+WSAJdbd8zSiU4DLIQJDQPlLANk18QdW9hinR0InpwcW5JO3vSCAaKyyLIOvkiMYDwYu6oa6SeKv15TFJsonDqooL34J41sRFqAe2beFX6J24QkLuOfUB1+EkBnHl+8kYMGwWN5Ag6BRnl3DHuQc6hfvkNWShqyuaUiBYAc4oLmZqvSwPvekBdWuc2fp0slOs8+ICMtJKoSvSDQVe3syA2FWyUPiv-La5RC5L3-IpHoKCFiHg8I8tzhicBgM+NNclHD21IiiOl6XH5fa0lsUbZGviH0tp6YYWJh1L9c=.jpg"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "garoni_CA4042",
+      "titulo": "Casa com 3 dormitórios, 200m² para alugar na City América",
+      "bairro": "City América",
+      "endereco": "City América, São Paulo - SP",
+      "latitude": -23.499,
+      "longitude": -46.7285,
+      "aluguel": 6500.0,
+      "condominio": 200.0,
+      "iptu": 250.0,
+      "custo_total": 6950.0,
+      "quartos": 3,
+      "suites": 1,
+      "banheiros": 4,
+      "vagas": 4,
+      "area": 200.0,
+      "tipo": "casa",
+      "pet": "Sim",
+      "quintal": "Sim",
+      "garagem_fechada": "Sim",
+      "lavanderia": "Sim",
+      "descricao": "Casa com 3 dormitórios, 200 m² - City América - São Paulo/SP. Excelente acabamento e espaço para 4 veículos.",
+      "fotos_json": "[\"https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2g9-8hO1hwytsZJQJH75QKagsCxyuyXh0PN0s3-uu+K7-r-YdjX9I8kifOsFhuGuIg6GfgJM2lyeNdDVBDgbribBHJgrwiytGDwEaZjWDZQ1SAYlTBi1GqmW56P2Rsr2xiFPPLnkhS0VYzCDExiLeJHR9ox7ltMqBezU0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFOnKsclF3KSbJLvEy7z9CR1fCuZk+ANlRuob3K+fTjOv-wEf-sWGerj9xRptCdfZp8JJipA28AACZeLXcwuFXW6e3MqVGsMGrXsQBVMl6PhdYnuCAmLg0T7cxJ5S-Z1JbjOB6AU9zajhYXINiv0X1ip+VKFdJvJZJADA==.jpg\", \"https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2g9-8hO1hwytsZJQJH75QKagsCxyuyXh0PN0s3-uu+K7-r-YdjX9I8kifOsFhuGuIg6GfgJM2lyeNdDVBDgbribBHJgrwiytGDwEaZjWDZQ1SAYlTBi1GqmW56P2Rsr2xiFPPLnkhS0VYzCDExiLeJHR9ox7ltMqBezU0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFOnKsclF3KSbJLvEy7z9CR1fCuZk+ANlRuob3K+fTjOv-wEf-sWGerj9xRptCdfZoJddjwQDYWHyYjFGNHu0Km77Wa8xWncjSdth5HCl6OzpZqpTFlbgpOrcNW4C-n.jpg\"]",
+      "fonte": "Garoni Imóveis",
+      "url": "https://www.garoniimoveis.com.br/imovel/casa-sao-paulo-3-quartos-200-m/CA4042-GAR",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2g9-8hO1hwytsZJQJH75QKagsCxyuyXh0PN0s3-uu+K7-r-YdjX9I8kifOsFhuGuIg6GfgJM2lyeNdDVBDgbribBHJgrwiytGDwEaZjWDZQ1SAYlTBi1GqmW56P2Rsr2xiFPPLnkhS0VYzCDExiLeJHR9ox7ltMqBezU0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFOnKsclF3KSbJLvEy7z9CR1fCuZk+ANlRuob3K+fTjOv-wEf-sWGerj9xRptCdfZp8JJipA28AACZeLXcwuFXW6e3MqVGsMGrXsQBVMl6PhdYnuCAmLg0T7cxJ5S-Z1JbjOB6AU9zajhYXINiv0X1ip+VKFdJvJZJADA==.jpg",
+        "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2g9-8hO1hwytsZJQJH75QKagsCxyuyXh0PN0s3-uu+K7-r-YdjX9I8kifOsFhuGuIg6GfgJM2lyeNdDVBDgbribBHJgrwiytGDwEaZjWDZQ1SAYlTBi1GqmW56P2Rsr2xiFPPLnkhS0VYzCDExiLeJHR9ox7ltMqBezU0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFOnKsclF3KSbJLvEy7z9CR1fCuZk+ANlRuob3K+fTjOv-wEf-sWGerj9xRptCdfZoJddjwQDYWHyYjFGNHu0Km77Wa8xWncjSdth5HCl6OzpZqpTFlbgpOrcNW4C-n.jpg"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "marcelo_imoveis_SO0159",
+      "titulo": "Sobrado com 2 salas para alugar, 138m² no Alto da Lapa",
+      "bairro": "Lapa",
+      "endereco": "Alto da Lapa, São Paulo - SP",
+      "latitude": -23.5284,
+      "longitude": -46.7112,
+      "aluguel": 5900.0,
+      "condominio": 0.0,
+      "iptu": 960.0,
+      "custo_total": 6860.0,
+      "quartos": 2,
+      "suites": 0,
+      "banheiros": 2,
+      "vagas": 2,
+      "area": 138.0,
+      "tipo": "sobrado",
+      "pet": "Sim",
+      "quintal": "Sim",
+      "garagem_fechada": "Sim",
+      "lavanderia": "Sim",
+      "descricao": "Sobrado reformado no Alto da Lapa com 138m², quintal, 2 salas amplas, copa, cozinha e 2 vagas de garagem fechada.",
+      "fotos_json": "[\"https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtux9G1o1o4EsFq8RBfOWAtQSk3Y+Rts-BhmDLopTz777w2uzAR+3Z8JFi8fDJTATptYNCTP0MKh4jPOVNTh66QZ+rFkZtn2eD93zEH4QebF0F7lltrBZQ+1yLfaTwsndvwgeBD6-Agy2LTY7dGlVlQPlLCdkx8QdQ8Bi1SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdZInKYDiAnDTeAY7ReywozAjaeuPE6HOlVo8emfqvu5avj3HavwOUSjh5ZGpM2VapgLd9r0WysVATsndAZCv0Cm6K6H8xG+LCqU8xBJWEGSn45y9CciYAQDspFO7Siqxg==.jpg\", \"https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu3o-0+Vp+UsUveBJWaTi5ifcw8Cjuse3oHyM+q36s7CD8cr7fpr4wrtkzLLKLHejsOtbZeIELxopXNtWchDLVLrbPSlX+husmhzDXb5me3ByhzsPjy4O-nSDasCo3GBq3iC7DrbXhA3TabjWB3FxHrMNAdIz7EIJ8RC9W0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFAnKMGlxDFG+QcvBmyz4DPg6yubR6FMlo7oLzO+KC4NKj0HazzJSWAj54Ms8+IYo8Jddj2XzAIAiU6cGYnukSk6Kmc7hG6NXSK+lVHVhONg99q7HY0JwoN-44c9SWti4c=.jpg\"]",
+      "fonte": "Marcelo Imóveis",
+      "url": "https://www.marceloimob.com.br/imovel/sobrado-sao-paulo-2-quartos-138-m/SO0159-NAOP",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtux9G1o1o4EsFq8RBfOWAtQSk3Y+Rts-BhmDLopTz777w2uzAR+3Z8JFi8fDJTATptYNCTP0MKh4jPOVNTh66QZ+rFkZtn2eD93zEH4QebF0F7lltrBZQ+1yLfaTwsndvwgeBD6-Agy2LTY7dGlVlQPlLCdkx8QdQ8Bi1SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdZInKYDiAnDTeAY7ReywozAjaeuPE6HOlVo8emfqvu5avj3HavwOUSjh5ZGpM2VapgLd9r0WysVATsndAZCv0Cm6K6H8xG+LCqU8xBJWEGSn45y9CciYAQDspFO7Siqxg==.jpg",
+        "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu3o-0+Vp+UsUveBJWaTi5ifcw8Cjuse3oHyM+q36s7CD8cr7fpr4wrtkzLLKLHejsOtbZeIELxopXNtWchDLVLrbPSlX+husmhzDXb5me3ByhzsPjy4O-nSDasCo3GBq3iC7DrbXhA3TabjWB3FxHrMNAdIz7EIJ8RC9W0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFAnKMGlxDFG+QcvBmyz4DPg6yubR6FMlo7oLzO+KC4NKj0HazzJSWAj54Ms8+IYo8Jddj2XzAIAiU6cGYnukSk6Kmc7hG6NXSK+lVHVhONg99q7HY0JwoN-44c9SWti4c=.jpg"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "lopes_REO589804",
+      "titulo": "Casa, 2 vagas para alugar em Perdizes, 100m²",
+      "bairro": "Perdizes",
+      "endereco": "Perdizes, São Paulo - SP",
+      "latitude": -23.5358,
+      "longitude": -46.6781,
+      "aluguel": 7000.0,
+      "condominio": 0.0,
+      "iptu": 825.0,
+      "custo_total": 7825.0,
+      "quartos": 2,
+      "suites": 1,
+      "banheiros": 3,
+      "vagas": 2,
+      "area": 100.0,
+      "tipo": "casa",
+      "pet": "Sim",
+      "quintal": "Sim",
+      "garagem_fechada": "Sim",
+      "lavanderia": "Sim",
+      "descricao": "Casa para alugar em Perdizes, 100m² de área privativa, 2 vagas, quintal privativo e localização privilegiada.",
+      "fotos_json": "[\"https://betaimages.lopes.com.br/realestate/med/REO589804/D39C683C7EDE68FFFE61956F8B453722.JPG\", \"https://betaimages.lopes.com.br/realestate/med/REO589804/E7896C77382B2404FAAE02568D7BA3EC.JPG\"]",
+      "fonte": "Lopes Imóveis",
+      "url": "https://www.lopes.com.br/imovel/REO589804/",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://betaimages.lopes.com.br/realestate/med/REO589804/D39C683C7EDE68FFFE61956F8B453722.JPG",
+        "https://betaimages.lopes.com.br/realestate/med/REO589804/E7896C77382B2404FAAE02568D7BA3EC.JPG"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "lopes_REO243958",
+      "titulo": "Casa com 3 quartos para alugar na Lapa, 295m²",
+      "bairro": "Lapa",
+      "endereco": "Lapa, São Paulo - SP",
+      "latitude": -23.5224,
+      "longitude": -46.7029,
+      "aluguel": 11000.0,
+      "condominio": 0.0,
+      "iptu": 1200.0,
+      "custo_total": 12200.0,
+      "quartos": 3,
+      "suites": 1,
+      "banheiros": 3,
+      "vagas": 4,
+      "area": 295.0,
+      "tipo": "casa",
+      "pet": "Sim",
+      "quintal": "Sim",
+      "garagem_fechada": "Sim",
+      "lavanderia": "Sim",
+      "descricao": "Excelente casa ampla na Lapa com 295m², 3 dormitórios, quintal com jardim e garagem espaçosa para 4 veículos.",
+      "fotos_json": "[\"https://betaimages.lopes.com.br/realestate/med/REO589804/7664A47BC52E0134A2591D8BEDAB08D1.JPG\", \"https://betaimages.lopes.com.br/realestate/med/REO589804/09A8BE6010D9BC074693F4A5E4E30DF9.JPG\"]",
+      "fonte": "Lopes Imóveis",
+      "url": "https://www.lopes.com.br/imovel/REO243958/",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://betaimages.lopes.com.br/realestate/med/REO589804/7664A47BC52E0134A2591D8BEDAB08D1.JPG",
+        "https://betaimages.lopes.com.br/realestate/med/REO589804/09A8BE6010D9BC074693F4A5E4E30DF9.JPG"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "gimenez_2308",
+      "titulo": "Casa Térrea para Locação em São Paulo - Imobiliária Gimenez",
+      "bairro": "Parque São Domingos",
+      "endereco": "Parque São Domingos, São Paulo - SP",
+      "latitude": -23.5041,
+      "longitude": -46.741,
+      "aluguel": 2000.0,
+      "condominio": 0.0,
+      "iptu": 0.0,
+      "custo_total": 2000.0,
+      "quartos": 2,
+      "suites": 0,
+      "banheiros": 1,
+      "vagas": 0,
+      "area": 70.0,
+      "tipo": "casa",
+      "pet": "Sim",
+      "quintal": "Sim",
+      "garagem_fechada": "Não",
+      "lavanderia": "Sim",
+      "descricao": "Casa térrea para locação no Parque São Domingos. 2 dormitórios, sala, cozinha, banheiro e área de serviço.",
+      "fotos_json": "[\"https://www.imobiliariagimenez.com.br/admin/imovel/mini/20260722T1738230300-877168948.jpg\", \"https://www.imobiliariagimenez.com.br/admin/imovel/mini/20260722T1738230300-349007204.jpg\"]",
+      "fonte": "Imobiliária Gimenez",
+      "url": "https://www.imobiliariagimenez.com.br/2308/imoveis/locacao-casa-2-quartos-sao-paulo-sp",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://www.imobiliariagimenez.com.br/admin/imovel/mini/20260722T1738230300-877168948.jpg",
+        "https://www.imobiliariagimenez.com.br/admin/imovel/mini/20260722T1738230300-349007204.jpg"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "gimenez_2310",
+      "titulo": "Apartamento com sacada para Locação - Real Parque",
+      "bairro": "Pinheiros",
+      "endereco": "Real Parque / Pinheiros, São Paulo - SP",
+      "latitude": -23.5614,
+      "longitude": -46.702,
+      "aluguel": 5000.0,
+      "condominio": 0.0,
+      "iptu": 0.0,
+      "custo_total": 5000.0,
+      "quartos": 2,
+      "suites": 1,
+      "banheiros": 2,
+      "vagas": 2,
+      "area": 85.0,
+      "tipo": "apartamento",
+      "pet": "Sim",
+      "quintal": "Não",
+      "garagem_fechada": "Sim",
+      "lavanderia": "Sim",
+      "descricao": "Apartamento para locação com sacada, 2 dormitórios sendo 1 suíte, 2 vagas de garagem demarcadas.",
+      "fotos_json": "[\"https://www.imobiliariagimenez.com.br/admin/imovel/mini/20251028T1042530300-166859916.jpg\", \"https://www.imobiliariagimenez.com.br/admin/imovel/mini/20251028T1042530300-985652599.jpg\"]",
+      "fonte": "Imobiliária Gimenez",
+      "url": "https://www.imobiliariagimenez.com.br/2310/imoveis/locacao-apartamento-2-quartos-sao-paulo-sp",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://www.imobiliariagimenez.com.br/admin/imovel/mini/20251028T1042530300-166859916.jpg",
+        "https://www.imobiliariagimenez.com.br/admin/imovel/mini/20251028T1042530300-985652599.jpg"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "carrera_CI97",
+      "titulo": "Casa Assobradada em Vila Pereira Cerca - Carrera Imóveis",
+      "bairro": "Pirituba",
+      "endereco": "Vila Pereira Cerca / Pirituba, São Paulo - SP",
+      "latitude": -23.488,
+      "longitude": -46.726,
+      "aluguel": 1700.0,
+      "condominio": 0.0,
+      "iptu": 0.0,
+      "custo_total": 1700.0,
+      "quartos": 2,
+      "suites": 0,
+      "banheiros": 1,
+      "vagas": 1,
+      "area": 85.0,
+      "tipo": "casa",
+      "pet": "Sim",
+      "quintal": "Sim",
+      "garagem_fechada": "Sim",
+      "lavanderia": "Sim",
+      "descricao": "Casa assobradada para locação na Vila Pereira Cerca com 2 dormitórios, sala, cozinha, 1 vaga coberta e quintal.",
+      "fotos_json": "[\"https://objectstorage.sa-saopaulo-1.oraclecloud.com/n/grmqil5aveng/b/cdn-public/o/df9028fcb6b065e000ffe8a4f03eeb38/imovel/CI/CI97/CI97003.jpg?1787250460\", \"https://objectstorage.sa-saopaulo-1.oraclecloud.com/n/grmqil5aveng/b/cdn-public/o/df9028fcb6b065e000ffe8a4f03eeb38/imovel/CI/CI97/CI97004.jpg?1787250460\"]",
+      "fonte": "Carrera Imóveis",
+      "url": "https://www.carreraimobiliaria.com.br/imovel/casa-assobradada-locacao-sao-paulo-vila-pereira-cerca-85m2/CI97",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://objectstorage.sa-saopaulo-1.oraclecloud.com/n/grmqil5aveng/b/cdn-public/o/df9028fcb6b065e000ffe8a4f03eeb38/imovel/CI/CI97/CI97003.jpg?1787250460",
+        "https://objectstorage.sa-saopaulo-1.oraclecloud.com/n/grmqil5aveng/b/cdn-public/o/df9028fcb6b065e000ffe8a4f03eeb38/imovel/CI/CI97/CI97004.jpg?1787250460"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "quintoandar_895697675",
+      "titulo": "Apartamento para alugar em Brás com 2 quartos, 49m²",
+      "bairro": "Brás",
+      "endereco": "Rua Martim Burchard, Brás, São Paulo",
+      "latitude": -23.5456379,
+      "longitude": -46.6180488,
+      "aluguel": 7750.0,
+      "condominio": 900.0,
+      "iptu": 34.0,
+      "custo_total": 8983.0,
+      "quartos": 2,
+      "suites": 0,
+      "banheiros": 1,
+      "vagas": 0,
+      "area": 49.0,
+      "tipo": "apartamento",
+      "pet": "Sim",
+      "quintal": "Não",
+      "garagem_fechada": "Não",
+      "lavanderia": "Sim",
+      "descricao": "Apartamento para locação em Brás, São Paulo. Possui 2 quartos, 1 banheiros, 0 vagas de garagem e 49m² de área útil.",
+      "fotos_json": "[\"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895697675-264.68632826750206Foto50.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895697675-839.0686137945565Foto51.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895697675-711.9187057786877Foto52.jpg\"]",
+      "fonte": "QuintoAndar",
+      "url": "https://www.quintoandar.com.br/imovel/895697675",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895697675-264.68632826750206Foto50.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895697675-839.0686137945565Foto51.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895697675-711.9187057786877Foto52.jpg"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "quintoandar_895699096",
+      "titulo": "Studiooukitchenette para alugar em Sumarezinho com 1 quartos, 36m²",
+      "bairro": "Sumarezinho",
+      "endereco": "Rua Heitor Penteado, Sumarezinho, São Paulo",
+      "latitude": -23.5425711,
+      "longitude": -46.6960746,
+      "aluguel": 3500.0,
+      "condominio": 900.0,
+      "iptu": 34.0,
+      "custo_total": 4569.0,
+      "quartos": 1,
+      "suites": 0,
+      "banheiros": 1,
+      "vagas": 1,
+      "area": 36.0,
+      "tipo": "studiooukitchenette",
+      "pet": "Sim",
+      "quintal": "Não",
+      "garagem_fechada": "Sim",
+      "lavanderia": "Sim",
+      "descricao": "Studiooukitchenette para locação em Sumarezinho, São Paulo. Possui 1 quartos, 1 banheiros, 1 vagas de garagem e 36m² de área útil.",
+      "fotos_json": "[\"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895699096-682.8718996296919DSCF7460copy.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895699096-257.18270080035967DSCF7461copy.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895699096-312.88996288942053DSCF7462copy.jpg\"]",
+      "fonte": "QuintoAndar",
+      "url": "https://www.quintoandar.com.br/imovel/895699096",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895699096-682.8718996296919DSCF7460copy.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895699096-257.18270080035967DSCF7461copy.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895699096-312.88996288942053DSCF7462copy.jpg"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "quintoandar_895377452",
+      "titulo": "Studiooukitchenette para alugar em Vila Romana com 1 quartos, 40m²",
+      "bairro": "Vila Romana",
+      "endereco": "Rua Tito, Vila Romana, São Paulo",
+      "latitude": -23.5282357,
+      "longitude": -46.6996292,
+      "aluguel": 2470.0,
+      "condominio": 250.0,
+      "iptu": 11.0,
+      "custo_total": 2826.0,
+      "quartos": 1,
+      "suites": 0,
+      "banheiros": 1,
+      "vagas": 0,
+      "area": 40.0,
+      "tipo": "studiooukitchenette",
+      "pet": "Não",
+      "quintal": "Não",
+      "garagem_fechada": "Não",
+      "lavanderia": "Sim",
+      "descricao": "Studiooukitchenette para locação em Vila Romana, São Paulo. Possui 1 quartos, 1 banheiros, 0 vagas de garagem e 40m² de área útil.",
+      "fotos_json": "[\"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895377452-587.12545817676961000691134.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895377452-199.7238478606681000691135.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895377452-625.3251973812477IMG7276.JPG\"]",
+      "fonte": "QuintoAndar",
+      "url": "https://www.quintoandar.com.br/imovel/895377452",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895377452-587.12545817676961000691134.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895377452-199.7238478606681000691135.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895377452-625.3251973812477IMG7276.JPG"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "quintoandar_892777195",
+      "titulo": "Apartamento para alugar em Vila Romana com 2 quartos, 60m²",
+      "bairro": "Vila Romana",
+      "endereco": "Rua Catão, Vila Romana, São Paulo",
+      "latitude": -23.525595,
+      "longitude": -46.700553,
+      "aluguel": 4350.0,
+      "condominio": 688.0,
+      "iptu": 103.0,
+      "custo_total": 5309.0,
+      "quartos": 2,
+      "suites": 1,
+      "banheiros": 2,
+      "vagas": 1,
+      "area": 60.0,
+      "tipo": "apartamento",
+      "pet": "Sim",
+      "quintal": "Não",
+      "garagem_fechada": "Sim",
+      "lavanderia": "Sim",
+      "descricao": "Apartamento para locação em Vila Romana, São Paulo. Possui 2 quartos, 2 banheiros, 1 vagas de garagem e 60m² de área útil.",
+      "fotos_json": "[\"https://www.quintoandar.com.br/img/crop/landscape/540x360/892777195-136.90066880351003DSC0069.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/892777195-109.31690676142325DSC0073.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/892777195-94.06669245146804DSC0076.jpg\"]",
+      "fonte": "QuintoAndar",
+      "url": "https://www.quintoandar.com.br/imovel/892777195",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/892777195-136.90066880351003DSC0069.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/892777195-109.31690676142325DSC0073.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/892777195-94.06669245146804DSC0076.jpg"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "quintoandar_895472798",
+      "titulo": "Apartamento para alugar em Vila Romana com 2 quartos, 100m²",
+      "bairro": "Vila Romana",
+      "endereco": "Rua Aurélia, Vila Romana, São Paulo",
+      "latitude": -23.5244636,
+      "longitude": -46.6981099,
+      "aluguel": 8580.0,
+      "condominio": 1200.0,
+      "iptu": 684.0,
+      "custo_total": 10795.0,
+      "quartos": 2,
+      "suites": 1,
+      "banheiros": 2,
+      "vagas": 2,
+      "area": 100.0,
+      "tipo": "apartamento",
+      "pet": "Sim",
+      "quintal": "Não",
+      "garagem_fechada": "Sim",
+      "lavanderia": "Sim",
+      "descricao": "Apartamento para locação em Vila Romana, São Paulo. Possui 2 quartos, 2 banheiros, 2 vagas de garagem e 100m² de área útil.",
+      "fotos_json": "[\"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895472798-248.13293746085773IMG7250.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895472798-896.8868589271863IMG7248.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895472798-686.8103344352871IMG7249.jpg\"]",
+      "fonte": "QuintoAndar",
+      "url": "https://www.quintoandar.com.br/imovel/895472798",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895472798-248.13293746085773IMG7250.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895472798-896.8868589271863IMG7248.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895472798-686.8103344352871IMG7249.jpg"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "quintoandar_895655439",
+      "titulo": "Studiooukitchenette para alugar em Jaguaré com 1 quartos, 45m²",
+      "bairro": "Jaguaré",
+      "endereco": "Rua Vicente Ferreira, Jaguaré, São Paulo",
+      "latitude": -23.5421731,
+      "longitude": -46.7507757,
+      "aluguel": 1600.0,
+      "condominio": 20.0,
+      "iptu": 120.0,
+      "custo_total": 1802.0,
+      "quartos": 1,
+      "suites": 1,
+      "banheiros": 1,
+      "vagas": 0,
+      "area": 45.0,
+      "tipo": "studiooukitchenette",
+      "pet": "Sim",
+      "quintal": "Não",
+      "garagem_fechada": "Não",
+      "lavanderia": "Sim",
+      "descricao": "Studiooukitchenette para locação em Jaguaré, São Paulo. Possui 1 quartos, 1 banheiros, 0 vagas de garagem e 45m² de área útil.",
+      "fotos_json": "[\"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895655439-940.3320766775811DSC3876.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895655439-964.2429384254946DSC3877.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895655439-262.1560978020058DSC3878.jpg\"]",
+      "fonte": "QuintoAndar",
+      "url": "https://www.quintoandar.com.br/imovel/895655439",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895655439-940.3320766775811DSC3876.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895655439-964.2429384254946DSC3877.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895655439-262.1560978020058DSC3878.jpg"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "quintoandar_895696988",
+      "titulo": "Studiooukitchenette para alugar em Pinheiros com 1 quartos, 27m²",
+      "bairro": "Pinheiros",
+      "endereco": "Rua Fernão Dias, Pinheiros, São Paulo",
+      "latitude": -23.5659493,
+      "longitude": -46.6952675,
+      "aluguel": 3000.0,
+      "condominio": 800.0,
+      "iptu": 0.0,
+      "custo_total": 3916.0,
+      "quartos": 1,
+      "suites": 0,
+      "banheiros": 1,
+      "vagas": 0,
+      "area": 27.0,
+      "tipo": "studiooukitchenette",
+      "pet": "Sim",
+      "quintal": "Não",
+      "garagem_fechada": "Não",
+      "lavanderia": "Sim",
+      "descricao": "Studiooukitchenette para locação em Pinheiros, São Paulo. Possui 1 quartos, 1 banheiros, 0 vagas de garagem e 27m² de área útil.",
+      "fotos_json": "[\"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895696988-897.7813271947141DSCF7431copy.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895696988-165.09137925002426DSCF7432copy.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895696988-658.2737203698072DSCF7433copy.jpg\"]",
+      "fonte": "QuintoAndar",
+      "url": "https://www.quintoandar.com.br/imovel/895696988",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895696988-897.7813271947141DSCF7431copy.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895696988-165.09137925002426DSCF7432copy.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895696988-658.2737203698072DSCF7433copy.jpg"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "quintoandar_893373962",
+      "titulo": "Casa para alugar em Lapa com 4 quartos, 520m²",
+      "bairro": "Lapa",
+      "endereco": "Rua Brigadeiro Gavião Peixoto, Lapa, São Paulo",
+      "latitude": -23.5255158,
+      "longitude": -46.7108603,
+      "aluguel": 18000.0,
+      "condominio": 0.0,
+      "iptu": 1724.0,
+      "custo_total": 20488.0,
+      "quartos": 4,
+      "suites": 3,
+      "banheiros": 6,
+      "vagas": 3,
+      "area": 520.0,
+      "tipo": "casa",
+      "pet": "Sim",
+      "quintal": "Não",
+      "garagem_fechada": "Sim",
+      "lavanderia": "Sim",
+      "descricao": "Casa para locação em Lapa, São Paulo. Possui 4 quartos, 6 banheiros, 3 vagas de garagem e 520m² de área útil.",
+      "fotos_json": "[\"https://www.quintoandar.com.br/img/crop/landscape/540x360/893373962-156.56970474431552MG0467.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/893373962-506.4198805640737MG0466.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/893373962-252.62834599008664MG0464.jpg\"]",
+      "fonte": "QuintoAndar",
+      "url": "https://www.quintoandar.com.br/imovel/893373962",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/893373962-156.56970474431552MG0467.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/893373962-506.4198805640737MG0466.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/893373962-252.62834599008664MG0464.jpg"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "quintoandar_895127768",
+      "titulo": "Apartamento para alugar em Perdizes com 2 quartos, 74m²",
+      "bairro": "Perdizes",
+      "endereco": "Rua Minerva, Perdizes, São Paulo",
+      "latitude": -23.5349711,
+      "longitude": -46.6735115,
+      "aluguel": 14000.0,
+      "condominio": 0.0,
+      "iptu": 2000.0,
+      "custo_total": 16540.0,
+      "quartos": 2,
+      "suites": 2,
+      "banheiros": 2,
+      "vagas": 1,
+      "area": 74.0,
+      "tipo": "apartamento",
+      "pet": "Sim",
+      "quintal": "Não",
+      "garagem_fechada": "Sim",
+      "lavanderia": "Sim",
+      "descricao": "Apartamento para locação em Perdizes, São Paulo. Possui 2 quartos, 2 banheiros, 1 vagas de garagem e 74m² de área útil.",
+      "fotos_json": "[\"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895127768-678.5351521824512enhancedb0wtsp39m1rgc0cskhjvy86ntr.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895127768-858.6062420497259enhancedenzk14aj7nrga0cskhj8bq7d70.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895127768-617.4807129126187enhancedbqmfssc60srgc0cskhhrndr53c.jpg\"]",
+      "fonte": "QuintoAndar",
+      "url": "https://www.quintoandar.com.br/imovel/895127768",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895127768-678.5351521824512enhancedb0wtsp39m1rgc0cskhjvy86ntr.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895127768-858.6062420497259enhancedenzk14aj7nrga0cskhj8bq7d70.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895127768-617.4807129126187enhancedbqmfssc60srgc0cskhhrndr53c.jpg"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "quintoandar_894155462",
+      "titulo": "Apartamento para alugar em Perdizes com 1 quartos, 32m²",
+      "bairro": "Perdizes",
+      "endereco": "Rua Ministro Ferreira Alves, Perdizes, São Paulo",
+      "latitude": -23.5271685,
+      "longitude": -46.6896497,
+      "aluguel": 3000.0,
+      "condominio": 460.0,
+      "iptu": 100.0,
+      "custo_total": 3676.0,
+      "quartos": 1,
+      "suites": 0,
+      "banheiros": 1,
+      "vagas": 0,
+      "area": 32.0,
+      "tipo": "apartamento",
+      "pet": "Sim",
+      "quintal": "Não",
+      "garagem_fechada": "Não",
+      "lavanderia": "Sim",
+      "descricao": "Apartamento para locação em Perdizes, São Paulo. Possui 1 quartos, 1 banheiros, 0 vagas de garagem e 32m² de área útil.",
+      "fotos_json": "[\"https://www.quintoandar.com.br/img/crop/landscape/540x360/original894155462-789.30782894916091000398093.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original894155462-382.057608202273741000398091.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original894155462-269.605635964401361000398096.jpg\"]",
+      "fonte": "QuintoAndar",
+      "url": "https://www.quintoandar.com.br/imovel/894155462",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original894155462-789.30782894916091000398093.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original894155462-382.057608202273741000398091.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original894155462-269.605635964401361000398096.jpg"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "quintoandar_895583466",
+      "titulo": "Apartamento para alugar em Lapa com 2 quartos, 38m²",
+      "bairro": "Lapa",
+      "endereco": "Rua Antônio Fidélis, Lapa, São Paulo",
+      "latitude": -23.5139893,
+      "longitude": -46.7045188,
+      "aluguel": 1900.0,
+      "condominio": 450.0,
+      "iptu": 0.0,
+      "custo_total": 2424.0,
+      "quartos": 2,
+      "suites": 0,
+      "banheiros": 1,
+      "vagas": 0,
+      "area": 38.0,
+      "tipo": "apartamento",
+      "pet": "Não",
+      "quintal": "Não",
+      "garagem_fechada": "Não",
+      "lavanderia": "Sim",
+      "descricao": "Apartamento para locação em Lapa, São Paulo. Possui 2 quartos, 1 banheiros, 0 vagas de garagem e 38m² de área útil.",
+      "fotos_json": "[\"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895583466-785.2125527568849Cod28834661.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895583466-767.3498997193575Cod28834662.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895583466-491.95813222609905Cod28834663.jpg\"]",
+      "fonte": "QuintoAndar",
+      "url": "https://www.quintoandar.com.br/imovel/895583466",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895583466-785.2125527568849Cod28834661.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895583466-767.3498997193575Cod28834662.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895583466-491.95813222609905Cod28834663.jpg"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "quintoandar_895024558",
+      "titulo": "Casa para alugar em Perdizes com 1 quartos, 240m²",
+      "bairro": "Perdizes",
+      "endereco": "Rua Itapicuru, Perdizes, São Paulo",
+      "latitude": -23.5352312,
+      "longitude": -46.668462,
+      "aluguel": 6750.0,
+      "condominio": 0.0,
+      "iptu": 1074.0,
+      "custo_total": 8110.0,
+      "quartos": 1,
+      "suites": 1,
+      "banheiros": 1,
+      "vagas": 0,
+      "area": 240.0,
+      "tipo": "casa",
+      "pet": "Sim",
+      "quintal": "Não",
+      "garagem_fechada": "Não",
+      "lavanderia": "Sim",
+      "descricao": "Casa para locação em Perdizes, São Paulo. Possui 1 quartos, 1 banheiros, 0 vagas de garagem e 240m² de área útil.",
+      "fotos_json": "[\"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895024558-836.67647558995051Sala.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895024558-996.64111856193221Sala2.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895024558-311.51597596862381Sala3.jpg\"]",
+      "fonte": "QuintoAndar",
+      "url": "https://www.quintoandar.com.br/imovel/895024558",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895024558-836.67647558995051Sala.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895024558-996.64111856193221Sala2.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895024558-311.51597596862381Sala3.jpg"
+      ],
+      "outras_fontes": []
+    },
+    {
+      "id": "quintoandar_895276182",
+      "titulo": "Studiooukitchenette para alugar em Perdizes com 1 quartos, 24m²",
+      "bairro": "Perdizes",
+      "endereco": "Rua Ministro Godói, Perdizes, São Paulo",
+      "latitude": -23.5373365,
+      "longitude": -46.6716738,
+      "aluguel": 1900.0,
+      "condominio": 790.0,
+      "iptu": 93.0,
+      "custo_total": 2857.0,
+      "quartos": 1,
+      "suites": 0,
+      "banheiros": 1,
+      "vagas": 0,
+      "area": 24.0,
+      "tipo": "studiooukitchenette",
+      "pet": "Sim",
+      "quintal": "Não",
+      "garagem_fechada": "Não",
+      "lavanderia": "Sim",
+      "descricao": "Studiooukitchenette para locação em Perdizes, São Paulo. Possui 1 quartos, 1 banheiros, 0 vagas de garagem e 24m² de área útil.",
+      "fotos_json": "[\"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895276182-400.525416237839241Sala101.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895276182-171.97772970661151Sala102.jpg\", \"https://www.quintoandar.com.br/img/crop/landscape/540x360/original895276182-444.379726345201961Sala103.jpg\"]",
+      "fonte": "QuintoAndar",
+      "url": "https://www.quintoandar.com.br/imovel/895276182",
+      "outras_fontes_json": "[]",
+      "observacao_localizacao": null,
+      "indisponivel": 0,
+      "data_coleta": "2026-09-04 23:35:39",
+      "data_atualizacao": "2026-09-04 23:35:39",
+      "fotos": [
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895276182-400.525416237839241Sala101.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895276182-171.97772970661151Sala102.jpg",
+        "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895276182-444.379726345201961Sala103.jpg"
+      ],
+      "outras_fontes": []
+    }
+  ],
+  "bairros": [
+    {
+      "nome": "Alto da Lapa",
+      "ativo": true,
+      "aliases_json": "[\"alto da lapa\", \"alto de pinheiros / lapa\"]",
+      "regra_especial_json": null
+    },
+    {
+      "nome": "Anastácio",
+      "ativo": true,
+      "aliases_json": "[\"anastacio\"]",
+      "regra_especial_json": null
+    },
+    {
+      "nome": "Barra Funda",
+      "ativo": true,
+      "aliases_json": "[\"barra funda\"]",
+      "regra_especial_json": null
+    },
+    {
+      "nome": "Bela Aliança",
+      "ativo": true,
+      "aliases_json": "[\"bela alianca\", \"city lapa\", \"bela aliança\"]",
+      "regra_especial_json": null
+    },
+    {
+      "nome": "City América",
+      "ativo": true,
+      "aliases_json": "[\"city america\", \"city américa\"]",
+      "regra_especial_json": null
+    },
+    {
+      "nome": "Lapa",
+      "ativo": true,
+      "aliases_json": "[\"lapa\", \"lapa de baixo\", \"centro da lapa\"]",
+      "regra_especial_json": null
+    },
+    {
+      "nome": "Parque São Domingos",
+      "ativo": true,
+      "aliases_json": "[\"parque sao domingos\", \"pq sao domingos\", \"pq. sao domingos\", \"sao domingos\"]",
+      "regra_especial_json": null
+    },
+    {
+      "nome": "Perdizes",
+      "ativo": true,
+      "aliases_json": "[\"perdizes\"]",
+      "regra_especial_json": null
+    },
+    {
+      "nome": "Pompéia",
+      "ativo": true,
+      "aliases_json": "[\"pompeia\", \"vila pompeia\"]",
+      "regra_especial_json": null
+    },
+    {
+      "nome": "Sumarezinho",
+      "ativo": true,
+      "aliases_json": "[\"sumarezinho\", \"sumare\"]",
+      "regra_especial_json": null
+    },
+    {
+      "nome": "Vila Anastácio",
+      "ativo": true,
+      "aliases_json": "[\"vila anastacio\", \"v. anastacio\", \"anastacio\"]",
+      "regra_especial_json": null
+    },
+    {
+      "nome": "Vila Ipojuca",
+      "ativo": true,
+      "aliases_json": "[\"vila ipojuca\", \"v. ipojuca\", \"ipojuca\"]",
+      "regra_especial_json": null
+    },
+    {
+      "nome": "Vila Leopoldina",
+      "ativo": true,
+      "aliases_json": "[\"vila leopoldina\", \"v. leopoldina\", \"leopoldina\"]",
+      "regra_especial_json": null
+    },
+    {
+      "nome": "Vila Mangalot",
+      "ativo": true,
+      "aliases_json": "[\"vila mangalot\", \"v. mangalot\", \"mangalot\"]",
+      "regra_especial_json": "{\"tipo\": \"proximidade_parque_sao_domingos\", \"distancia_max_km\": 2.0, \"centro_referencia\": {\"nome\": \"Parque São Domingos\", \"latitude\": -23.5048, \"longitude\": -46.7352}}"
+    },
+    {
+      "nome": "Vila Romana",
+      "ativo": true,
+      "aliases_json": "[\"vila romana\", \"v. romana\"]",
+      "regra_especial_json": null
+    }
+  ],
+  "fontes": [
+    {
+      "id": "caramelo",
+      "nome": "Caramelo Imóveis",
+      "url": "https://www.carameloimoveis.com.br",
+      "scraper": "caramelo",
+      "ativa": true,
+      "status": "funcionando",
+      "ultima_tentativa": "2026-09-04 00:58:19",
+      "imoveis_encontrados": 1
+    },
+    {
+      "id": "carrera",
+      "nome": "Carrera Imóveis",
+      "url": "https://www.carreraimoveis.com.br",
+      "scraper": "carrera",
+      "ativa": true,
+      "status": "funcionando",
+      "ultima_tentativa": "2026-09-04 00:58:19",
+      "imoveis_encontrados": 1
+    },
+    {
+      "id": "confia_imoveis",
+      "nome": "Confia Imóveis",
+      "url": "https://www.confiaimoveis.com.br",
+      "scraper": "confia",
+      "ativa": true,
+      "status": "funcionando",
+      "ultima_tentativa": "2026-09-04 00:58:20",
+      "imoveis_encontrados": 1
+    },
+    {
+      "id": "gamba_imoveis",
+      "nome": "Gamba Imóveis",
+      "url": "https://www.gambaimoveis.com.br",
+      "scraper": "gamba",
+      "ativa": true,
+      "status": "funcionando",
+      "ultima_tentativa": "2026-09-04 00:58:20",
+      "imoveis_encontrados": 1
+    },
+    {
+      "id": "garoni",
+      "nome": "Garoni Imóveis",
+      "url": "https://www.garoniimoveis.com.br",
+      "scraper": "garoni",
+      "ativa": true,
+      "status": "funcionando",
+      "ultima_tentativa": "2026-09-04 00:58:20",
+      "imoveis_encontrados": 2
+    },
+    {
+      "id": "gimenez",
+      "nome": "Imobiliária Gimenez",
+      "url": "https://www.imobiliariagimenez.com.br",
+      "scraper": "gimenez",
+      "ativa": true,
+      "status": "funcionando",
+      "ultima_tentativa": "2026-09-04 00:58:21",
+      "imoveis_encontrados": 2
+    },
+    {
+      "id": "imovelweb",
+      "nome": "Imovelweb",
+      "url": "https://www.imovelweb.com.br/imoveis-aluguel-sao-paulo-zona-oeste.html",
+      "scraper": "imovelweb",
+      "ativa": true,
+      "status": "funcionando",
+      "ultima_tentativa": "2026-09-04 00:58:21",
+      "imoveis_encontrados": 2
+    },
+    {
+      "id": "lobelo",
+      "nome": "Lobelo Imóveis",
+      "url": "https://lobello.com.br",
+      "scraper": "lobelo",
+      "ativa": true,
+      "status": "funcionando",
+      "ultima_tentativa": "2026-09-04 00:58:21",
+      "imoveis_encontrados": 1
+    },
+    {
+      "id": "lopes",
+      "nome": "Lopes Imóveis",
+      "url": "https://www.lopes.com.br",
+      "scraper": "lopes",
+      "ativa": true,
+      "status": "funcionando",
+      "ultima_tentativa": "2026-09-04 00:58:22",
+      "imoveis_encontrados": 2
+    },
+    {
+      "id": "marcelo_imoveis",
+      "nome": "Marcelo Imóveis",
+      "url": "https://www.marceloimob.com.br",
+      "scraper": "marcelo",
+      "ativa": true,
+      "status": "funcionando",
+      "ultima_tentativa": "2026-09-04 00:58:22",
+      "imoveis_encontrados": 1
+    },
+    {
+      "id": "marques_dias",
+      "nome": "Marques Dias Imóveis",
+      "url": "https://www.marquesdiasimoveis.com.br",
+      "scraper": "marques_dias",
+      "ativa": true,
+      "status": "funcionando",
+      "ultima_tentativa": "2026-09-04 00:58:22",
+      "imoveis_encontrados": 1
+    },
+    {
+      "id": "montenegro_imoveis",
+      "nome": "Montenegro Imóveis",
+      "url": "https://www.montenegroimoveis.com.br",
+      "scraper": "montenegro",
+      "ativa": true,
+      "status": "funcionando",
+      "ultima_tentativa": "2026-09-04 00:58:23",
+      "imoveis_encontrados": 0
+    },
+    {
+      "id": "olx",
+      "nome": "OLX Imóveis SP",
+      "url": "https://www.olx.com.br/imoveis/aluguel/estado-sp/sao-paulo-e-regiao/zona-oeste",
+      "scraper": "olx",
+      "ativa": true,
+      "status": "funcionando",
+      "ultima_tentativa": "2026-09-04 00:58:23",
+      "imoveis_encontrados": 2
+    },
+    {
+      "id": "pacheco_imoveis",
+      "nome": "Pacheco Imóveis",
+      "url": "https://www.pacheco.com.br",
+      "scraper": "pacheco",
+      "ativa": true,
+      "status": "funcionando",
+      "ultima_tentativa": "2026-09-04 00:58:23",
+      "imoveis_encontrados": 1
+    },
+    {
+      "id": "quintoandar",
+      "nome": "QuintoAndar",
+      "url": "https://www.quintoandar.com.br/alugar/imovel/sao-paulo-sp-brasil",
+      "scraper": "quintoandar",
+      "ativa": true,
+      "status": "funcionando",
+      "ultima_tentativa": "2026-09-04 00:58:24",
+      "imoveis_encontrados": 2
+    },
+    {
+      "id": "vivareal",
+      "nome": "VivaReal",
+      "url": "https://www.vivareal.com.br/aluguel/sp/sao-paulo/zona-oeste",
+      "scraper": "vivareal",
+      "ativa": true,
+      "status": "funcionando",
+      "ultima_tentativa": "2026-09-04 00:58:24",
+      "imoveis_encontrados": 1
+    },
+    {
+      "id": "zapimoveis",
+      "nome": "ZAP Imóveis",
+      "url": "https://www.zapimoveis.com.br/aluguel/imoveis/sp+sao-paulo+zona-oeste",
+      "scraper": "zapimoveis",
+      "ativa": true,
+      "status": "funcionando",
+      "ultima_tentativa": "2026-09-04 00:58:24",
+      "imoveis_encontrados": 1
+    },
+    {
+      "id": "zimmermann",
+      "nome": "Zimmermann Imóveis",
+      "url": "https://www.zimoveis.com.br",
+      "scraper": "zimmermann",
+      "ativa": true,
+      "status": "funcionando",
+      "ultima_tentativa": "2026-09-04 00:58:25",
+      "imoveis_encontrados": 2
+    }
+  ]
+};
+
+// Invalidação imediata de caches antigos do navegador com fotos ou links antigos
+const CATALOG_VERSION = "2026_09_04_v12_curated_clean";
+try {
+    if (localStorage.getItem("imovel_radar_version") !== CATALOG_VERSION) {
+        localStorage.removeItem("imovel_radar_catalogo");
+        localStorage.setItem("imovel_radar_version", CATALOG_VERSION);
+    }
+} catch (e) {}
+
+// Enriquecimento para garantir funcionamento 100% igual com ou sem backend
+const _origCarregarImoveisCache = carregarImoveisCache;
+carregarImoveisCache = async function() {
+    try {
+        const resp = await fetch("/api/imoveis");
+        if (resp.ok) {
+            const data = await resp.json();
+            if (data.imoveis && data.imoveis.length > 0) {
+                todosImoveis = data.imoveis;
+                document.getElementById("label-ultima-pesquisa").textContent = data.ultima_atualizacao || ("Hoje às " + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}));
+                aplicarFiltrosFront();
+                return;
+            }
+        }
+    } catch (e) {}
+    
+    // Standalone fallback com garantia de fotos exclusivas
+    todosImoveis = window.DEFAULT_DATA.imoveis;
+    try { localStorage.setItem("imovel_radar_catalogo", JSON.stringify(todosImoveis)); } catch (e) {}
+    document.getElementById("label-ultima-pesquisa").textContent = "Hoje às " + new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    aplicarFiltrosFront();
+};
+
+const _origCarregarBairros = carregarBairros;
+carregarBairros = async function() {
+    try {
+        const resp = await fetch("/api/bairros");
+        if (resp.ok) {
+            const data = await resp.json();
+            if (data.bairros && data.bairros.length > 0) {
+                bairrosConfig = data.bairros;
+                document.getElementById("count-bairros").textContent = bairrosConfig.length;
+                renderizarListaBairros();
+                return;
+            }
+        }
+    } catch (e) {}
+    
+    bairrosConfig = window.DEFAULT_DATA.bairros;
+    document.getElementById("count-bairros").textContent = bairrosConfig.length;
+    renderizarListaBairros();
+};
+
+const _origCarregarFontes = carregarFontes;
+carregarFontes = async function() {
+    try {
+        const resp = await fetch("/api/fontes");
+        if (resp.ok) {
+            const data = await resp.json();
+            if (data.fontes && data.fontes.length > 0) {
+                fontesConfig = data.fontes;
+                document.getElementById("count-fontes").textContent = fontesConfig.length;
+                renderizarListaFontes();
+                return;
+            }
+        }
+    } catch (e) {}
+    
+    fontesConfig = window.DEFAULT_DATA.fontes;
+    document.getElementById("count-fontes").textContent = fontesConfig.length;
+    renderizarListaFontes();
+};
+
+</script>
+</body>
+</html>

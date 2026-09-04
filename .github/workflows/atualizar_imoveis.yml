@@ -1,0 +1,64 @@
+name: Atualizacao Automatica de Imoveis
+
+on:
+  schedule:
+    # Executa automaticamente 2 vezes ao dia (às 08:00 e 18:00 UTC, aproximadamente 05:00 e 15:00 no horário de Brasília)
+    - cron: '0 8,18 * * *'
+  workflow_dispatch: # Permite que você execute manualmente a qualquer momento pelo painel do GitHub
+
+permissions:
+  contents: write
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: 1. Baixar código do repositório
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 2. Configurar Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: 3. Instalar dependências de raspagem
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f "requirements.txt" ]; then pip install -r requirements.txt; fi
+          if [ -f "imovel-radar-v2/requirements.txt" ]; then pip install -r imovel-radar-v2/requirements.txt; fi
+          pip install beautifulsoup4 requests httpx
+
+      - name: 4. Executar rotina autônoma de atualização
+        run: |
+          # Detecta onde o projeto está localizado (na raiz ou na pasta imovel-radar-v2)
+          if [ -d "imovel-radar-v2" ]; then
+            echo "Pasta imovel-radar-v2 detectada. Executando atualização..."
+            cd imovel-radar-v2
+            python rotina_atualizacao_nuvem.py
+            cd ..
+            # Sincroniza index.html e public para a raiz do repositório
+            cp -f imovel-radar-v2/index.html ./index.html 2>/dev/null || true
+            cp -rf imovel-radar-v2/public ./ 2>/dev/null || true
+            cp -f imovel-radar-v2/master_curated_properties.json ./master_curated_properties.json 2>/dev/null || true
+          else
+            echo "Executando diretamente da raiz..."
+            python rotina_atualizacao_nuvem.py
+          fi
+
+      - name: 5. Publicar alterações no GitHub (Disparando deploy no Netlify)
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "Nenhuma alteração detectada. O catálogo já está 100% atualizado."
+          else
+            git commit -m "chore(bot): atualização diária do catálogo de imóveis [skip ci]"
+            git push origin HEAD:${{ github.ref_name }}
+            echo "Sucesso! Os novos dados foram commitados e o Netlify atualizará o site automaticamente."
+          fi
