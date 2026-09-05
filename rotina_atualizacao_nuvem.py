@@ -68,6 +68,16 @@ def buscar_imoveis_quintoandar_frescos(max_imoveis=15):
             cidade = addr.get('city') or 'São Paulo'
             endereco = f"{rua}, {bairro}, {cidade}".strip(", ")
             
+            # Filtro estrito: apenas os 15 bairros oficiais do projeto
+            try:
+                bairros_data = json.loads((BASE_DIR / "config" / "bairros.json").read_text(encoding="utf-8"))
+                valid_bairros = {b['nome'].lower() for b in bairros_data} | {a.lower() for b in bairros_data for a in b.get('aliases', [])}
+                bairro_norm = bairro.lower().strip()
+                if not any(v in bairro_norm or bairro_norm in v for v in valid_bairros):
+                    return None
+            except Exception:
+                pass
+            
             area = hi.get('area')
             quartos = hi.get('bedrooms')
             banheiros = hi.get('bathrooms')
