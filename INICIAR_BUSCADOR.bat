@@ -2,7 +2,7 @@
 chcp 65001 > nul
 title Buscador de Imoveis - Centralizador de Locacao
 echo =======================================================
-echo          INICIANDO O BUSCADOR DE IMÓVEIS (V2)
+echo         INICIANDO O BUSCADOR DE IMÓVEIS (V2)
 echo =======================================================
 echo.
 
