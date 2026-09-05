@@ -1,5 +1,0 @@
-# Roteamento de API para Serverless Function
-/api/*  /.netlify/functions/api/:splat  200
-
-# Roteamento SPA
-/*  /index.html  200
