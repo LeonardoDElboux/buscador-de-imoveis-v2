@@ -27,9 +27,9 @@ git config user.email "83027220+LeonardoDElboux@users.noreply.github.com"
 if not exist ".git" (
     echo [2/4] Inicializando repositorio Git local...
     git init -b main
-    git remote add origin https://github.com/LeonardoDElboux/busacador-imoveis.git
+    git remote add origin https://github.com/LeonardoDElboux/buscador-de-imoveis-v2.git
 ) else (
-    git remote set-url origin https://github.com/LeonardoDElboux/busacador-imoveis.git
+    git remote set-url origin https://github.com/LeonardoDElboux/buscador-de-imoveis-v2.git
 )
 
 echo [3/4] Preparando arquivos modificados...
