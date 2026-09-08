@@ -180,36 +180,6 @@
     "outras_fontes": []
   },
   {
-    "id": "gimenez_2308",
-    "titulo": "Casa Térrea para Locação em São Paulo - Imobiliária Gimenez",
-    "bairro": "Parque São Domingos",
-    "endereco": "Parque São Domingos, São Paulo - SP",
-    "latitude": -23.5041,
-    "longitude": -46.741,
-    "aluguel": 2000.0,
-    "condominio": 0.0,
-    "iptu": 0.0,
-    "custo_total": 2000.0,
-    "quartos": 2,
-    "suites": 0,
-    "banheiros": 1,
-    "vagas": 0,
-    "area": 70.0,
-    "tipo": "casa",
-    "pet": "Sim",
-    "quintal": "Sim",
-    "garagem_fechada": "Não",
-    "lavanderia": "Sim",
-    "descricao": "Casa térrea para locação no Parque São Domingos. 2 dormitórios, sala, cozinha, banheiro e área de serviço.",
-    "fotos": [
-      "https://www.imobiliariagimenez.com.br/admin/imovel/mini/20260722T1738230300-877168948.jpg",
-      "https://www.imobiliariagimenez.com.br/admin/imovel/mini/20260722T1738230300-349007204.jpg"
-    ],
-    "fonte": "Imobiliária Gimenez",
-    "url": "https://www.imobiliariagimenez.com.br/2308/imoveis/locacao-casa-2-quartos-sao-paulo-sp",
-    "outras_fontes": []
-  },
-  {
     "id": "quintoandar_895699096",
     "titulo": "Studiooukitchenette para alugar em Sumarezinho com 1 quartos, 36m²",
     "bairro": "Sumarezinho",
@@ -458,37 +428,6 @@
     "outras_fontes": []
   },
   {
-    "id": "quintoandar_895583466",
-    "titulo": "Apartamento para alugar em Lapa com 2 quartos, 38m²",
-    "bairro": "Lapa",
-    "endereco": "Rua Antônio Fidélis, Lapa, São Paulo",
-    "latitude": -23.5139893,
-    "longitude": -46.7045188,
-    "aluguel": 1900.0,
-    "condominio": 450.0,
-    "iptu": 0.0,
-    "custo_total": 2424.0,
-    "quartos": 2,
-    "suites": 0,
-    "banheiros": 1,
-    "vagas": 0,
-    "area": 38,
-    "tipo": "apartamento",
-    "pet": "Não",
-    "quintal": "Não",
-    "garagem_fechada": "Não",
-    "lavanderia": "Sim",
-    "descricao": "Apartamento para locação em Lapa, São Paulo. Possui 2 quartos, 1 banheiros, 0 vagas de garagem e 38m² de área útil.",
-    "fotos": [
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895583466-785.2125527568849Cod28834661.jpg",
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895583466-767.3498997193575Cod28834662.jpg",
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895583466-491.95813222609905Cod28834663.jpg"
-    ],
-    "fonte": "QuintoAndar",
-    "url": "https://www.quintoandar.com.br/imovel/895583466",
-    "outras_fontes": []
-  },
-  {
     "id": "quintoandar_895024558",
     "titulo": "Casa para alugar em Perdizes com 1 quartos, 240m²",
     "bairro": "Perdizes",
@@ -734,6 +673,37 @@
     ],
     "fonte": "QuintoAndar",
     "url": "https://www.quintoandar.com.br/imovel/895408395",
+    "outras_fontes": []
+  },
+  {
+    "id": "quintoandar_895277716",
+    "titulo": "Apartamento para alugar em Perdizes com 2 quartos, 100m²",
+    "bairro": "Perdizes",
+    "endereco": "Rua Cardoso de Almeida, Perdizes, São Paulo",
+    "latitude": -23.5436738,
+    "longitude": -46.672637,
+    "aluguel": 5070.0,
+    "condominio": 0.0,
+    "iptu": 417.0,
+    "custo_total": 5683.0,
+    "quartos": 2,
+    "suites": 0,
+    "banheiros": 2,
+    "vagas": 1,
+    "area": 100,
+    "tipo": "apartamento",
+    "pet": "Não",
+    "quintal": "Não",
+    "garagem_fechada": "Sim",
+    "lavanderia": "Sim",
+    "descricao": "Apartamento para locação em Perdizes, São Paulo. Possui 2 quartos, 2 banheiros, 1 vagas de garagem e 100m² de área útil.",
+    "fotos": [
+      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895277716-586.3879193355306IMG1663.jpg",
+      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895277716-549.7535137515935IMG1666.jpg",
+      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895277716-537.6344880216499IMG1664.jpg"
+    ],
+    "fonte": "QuintoAndar",
+    "url": "https://www.quintoandar.com.br/imovel/895277716",
     "outras_fontes": []
   }
 ]
