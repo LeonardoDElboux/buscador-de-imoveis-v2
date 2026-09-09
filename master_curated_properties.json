@@ -397,37 +397,6 @@
     "outras_fontes": []
   },
   {
-    "id": "quintoandar_894155462",
-    "titulo": "Apartamento para alugar em Perdizes com 1 quartos, 32m²",
-    "bairro": "Perdizes",
-    "endereco": "Rua Ministro Ferreira Alves, Perdizes, São Paulo",
-    "latitude": -23.5271685,
-    "longitude": -46.6896497,
-    "aluguel": 3000.0,
-    "condominio": 460.0,
-    "iptu": 100.0,
-    "custo_total": 3676.0,
-    "quartos": 1,
-    "suites": 0,
-    "banheiros": 1,
-    "vagas": 0,
-    "area": 32,
-    "tipo": "apartamento",
-    "pet": "Sim",
-    "quintal": "Não",
-    "garagem_fechada": "Não",
-    "lavanderia": "Sim",
-    "descricao": "Apartamento para locação em Perdizes, São Paulo. Possui 1 quartos, 1 banheiros, 0 vagas de garagem e 32m² de área útil.",
-    "fotos": [
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original894155462-789.30782894916091000398093.jpg",
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original894155462-382.057608202273741000398091.jpg",
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original894155462-269.605635964401361000398096.jpg"
-    ],
-    "fonte": "QuintoAndar",
-    "url": "https://www.quintoandar.com.br/imovel/894155462",
-    "outras_fontes": []
-  },
-  {
     "id": "quintoandar_895024558",
     "titulo": "Casa para alugar em Perdizes com 1 quartos, 240m²",
     "bairro": "Perdizes",
