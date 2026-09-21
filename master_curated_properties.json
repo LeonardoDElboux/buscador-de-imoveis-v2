@@ -490,37 +490,6 @@
     "outras_fontes": []
   },
   {
-    "id": "quintoandar_895377447",
-    "titulo": "Studiooukitchenette para alugar em Vila Romana com 1 quartos, 30m²",
-    "bairro": "Vila Romana",
-    "endereco": "Rua Tito, Vila Romana, São Paulo",
-    "latitude": -23.5282357,
-    "longitude": -46.6996292,
-    "aluguel": 1708.0,
-    "condominio": 200.0,
-    "iptu": 11.0,
-    "custo_total": 1985.0,
-    "quartos": 1,
-    "suites": 1,
-    "banheiros": 1,
-    "vagas": 0,
-    "area": 30,
-    "tipo": "studiooukitchenette",
-    "pet": "Não",
-    "quintal": "Não",
-    "garagem_fechada": "Não",
-    "lavanderia": "Sim",
-    "descricao": "Studiooukitchenette para locação em Vila Romana, São Paulo. Possui 1 quartos, 1 banheiros, 0 vagas de garagem e 30m² de área útil.",
-    "fotos": [
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895377447-441.1295296479278Cod26774471.jpg",
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895377447-601.003606897785Cod26774472.jpg",
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895377447-324.10308787921684Cod26774473.jpg"
-    ],
-    "fonte": "QuintoAndar",
-    "url": "https://www.quintoandar.com.br/imovel/895377447",
-    "outras_fontes": []
-  },
-  {
     "id": "quintoandar_895519199",
     "titulo": "Casa para alugar em Vila Romana com 4 quartos, 280m²",
     "bairro": "Vila Romana",
