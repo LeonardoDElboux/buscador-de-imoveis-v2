@@ -304,37 +304,6 @@
     "outras_fontes": []
   },
   {
-    "id": "quintoandar_895696988",
-    "titulo": "Studiooukitchenette para alugar em Pinheiros com 1 quartos, 27m²",
-    "bairro": "Pinheiros",
-    "endereco": "Rua Fernão Dias, Pinheiros, São Paulo",
-    "latitude": -23.5659493,
-    "longitude": -46.6952675,
-    "aluguel": 3000.0,
-    "condominio": 800.0,
-    "iptu": 0.0,
-    "custo_total": 3916.0,
-    "quartos": 1,
-    "suites": 0,
-    "banheiros": 1,
-    "vagas": 0,
-    "area": 27,
-    "tipo": "studiooukitchenette",
-    "pet": "Sim",
-    "quintal": "Não",
-    "garagem_fechada": "Não",
-    "lavanderia": "Sim",
-    "descricao": "Studiooukitchenette para locação em Pinheiros, São Paulo. Possui 1 quartos, 1 banheiros, 0 vagas de garagem e 27m² de área útil.",
-    "fotos": [
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895696988-897.7813271947141DSCF7431copy.jpg",
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895696988-165.09137925002426DSCF7432copy.jpg",
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895696988-658.2737203698072DSCF7433copy.jpg"
-    ],
-    "fonte": "QuintoAndar",
-    "url": "https://www.quintoandar.com.br/imovel/895696988",
-    "outras_fontes": []
-  },
-  {
     "id": "quintoandar_893373962",
     "titulo": "Casa para alugar em Lapa com 4 quartos, 520m²",
     "bairro": "Lapa",
