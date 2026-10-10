@@ -521,37 +521,6 @@
     "outras_fontes": []
   },
   {
-    "id": "quintoandar_895699096",
-    "titulo": "Studiooukitchenette para alugar em Sumarezinho com 1 quartos, 36m²",
-    "bairro": "Sumarezinho",
-    "endereco": "Rua Heitor Penteado, Sumarezinho, São Paulo",
-    "latitude": -23.5425711,
-    "longitude": -46.6960746,
-    "aluguel": 3500.0,
-    "condominio": 900.0,
-    "iptu": 59.0,
-    "custo_total": 4594.0,
-    "quartos": 1,
-    "suites": 0,
-    "banheiros": 1,
-    "vagas": 1,
-    "area": 36,
-    "tipo": "studiooukitchenette",
-    "pet": "Sim",
-    "quintal": "Não",
-    "garagem_fechada": "Sim",
-    "lavanderia": "Sim",
-    "descricao": "Studiooukitchenette para locação em Sumarezinho, São Paulo. Possui 1 quartos, 1 banheiros, 1 vagas de garagem e 36m² de área útil.",
-    "fotos": [
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895699096-682.8718996296919DSCF7460copy.jpg",
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895699096-257.18270080035967DSCF7461copy.jpg",
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895699096-312.88996288942053DSCF7462copy.jpg"
-    ],
-    "fonte": "QuintoAndar",
-    "url": "https://www.quintoandar.com.br/imovel/895699096",
-    "outras_fontes": []
-  },
-  {
     "id": "quintoandar_893373962",
     "titulo": "Casa para alugar em Lapa com 4 quartos, 520m²",
     "bairro": "Lapa",
