@@ -120,36 +120,6 @@
     "outras_fontes": []
   },
   {
-    "id": "garoni_CA4042",
-    "titulo": "Casa com 3 dormitórios, 200m² para alugar na City América",
-    "bairro": "City América",
-    "endereco": "City América, São Paulo - SP",
-    "latitude": -23.499,
-    "longitude": -46.7285,
-    "aluguel": 6500.0,
-    "condominio": 200.0,
-    "iptu": 250.0,
-    "custo_total": 6950.0,
-    "quartos": 3,
-    "suites": 1,
-    "banheiros": 4,
-    "vagas": 4,
-    "area": 200.0,
-    "tipo": "casa",
-    "pet": "Sim",
-    "quintal": "Sim",
-    "garagem_fechada": "Sim",
-    "lavanderia": "Sim",
-    "descricao": "Casa com 3 dormitórios, 200 m² - City América - São Paulo/SP. Excelente acabamento e espaço para 4 veículos.",
-    "fotos": [
-      "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2g9-8hO1hwytsZJQJH75QKagsCxyuyXh0PN0s3-uu+K7-r-YdjX9I8kifOsFhuGuIg6GfgJM2lyeNdDVBDgbribBHJgrwiytGDwEaZjWDZQ1SAYlTBi1GqmW56P2Rsr2xiFPPLnkhS0VYzCDExiLeJHR9ox7ltMqBezU0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFOnKsclF3KSbJLvEy7z9CR1fCuZk+ANlRuob3K+fTjOv-wEf-sWGerj9xRptCdfZp8JJipA28AACZeLXcwuFXW6e3MqVGsMGrXsQBVMl6PhdYnuCAmLg0T7cxJ5S-Z1JbjOB6AU9zajhYXINiv0X1ip+VKFdJvJZJADA==.jpg",
-      "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu2g9-8hO1hwytsZJQJH75QKagsCxyuyXh0PN0s3-uu+K7-r-YdjX9I8kifOsFhuGuIg6GfgJM2lyeNdDVBDgbribBHJgrwiytGDwEaZjWDZQ1SAYlTBi1GqmW56P2Rsr2xiFPPLnkhS0VYzCDExiLeJHR9ox7ltMqBezU0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFOnKsclF3KSbJLvEy7z9CR1fCuZk+ANlRuob3K+fTjOv-wEf-sWGerj9xRptCdfZoJddjwQDYWHyYjFGNHu0Km77Wa8xWncjSdth5HCl6OzpZqpTFlbgpOrcNW4C-n.jpg"
-    ],
-    "fonte": "Garoni Imóveis",
-    "url": "https://www.garoniimoveis.com.br/imovel/casa-sao-paulo-3-quartos-200-m/CA4042-GAR",
-    "outras_fontes": []
-  },
-  {
     "id": "marcelo_imoveis_SO0159",
     "titulo": "Sobrado com 2 salas para alugar, 138m² no Alto da Lapa",
     "bairro": "Alto da Lapa",
