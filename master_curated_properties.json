@@ -152,37 +152,6 @@
     "outras_fontes": []
   },
   {
-    "id": "quintoandar_895472798",
-    "titulo": "Apartamento para alugar em Vila Romana com 2 quartos, 100m²",
-    "bairro": "Vila Romana",
-    "endereco": "Rua Aurélia, Vila Romana, São Paulo",
-    "latitude": -23.5244636,
-    "longitude": -46.6981099,
-    "aluguel": 8580.0,
-    "condominio": 1200.0,
-    "iptu": 684.0,
-    "custo_total": 10795.0,
-    "quartos": 2,
-    "suites": 1,
-    "banheiros": 2,
-    "vagas": 2,
-    "area": 100,
-    "tipo": "apartamento",
-    "pet": "Sim",
-    "quintal": "Não",
-    "garagem_fechada": "Sim",
-    "lavanderia": "Sim",
-    "descricao": "Apartamento para locação em Vila Romana, São Paulo. Possui 2 quartos, 2 banheiros, 2 vagas de garagem e 100m² de área útil.",
-    "fotos": [
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895472798-248.13293746085773IMG7250.jpg",
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895472798-896.8868589271863IMG7248.jpg",
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895472798-686.8103344352871IMG7249.jpg"
-    ],
-    "fonte": "QuintoAndar",
-    "url": "https://www.quintoandar.com.br/imovel/895472798",
-    "outras_fontes": []
-  },
-  {
     "id": "quintoandar_895127768",
     "titulo": "Apartamento para alugar em Perdizes com 2 quartos, 74m²",
     "bairro": "Perdizes",
@@ -428,6 +397,37 @@
     ],
     "fonte": "QuintoAndar",
     "url": "https://www.quintoandar.com.br/imovel/893373962",
+    "outras_fontes": []
+  },
+  {
+    "id": "quintoandar_895472798",
+    "titulo": "Apartamento para alugar em Vila Romana com 2 quartos, 100m²",
+    "bairro": "Vila Romana",
+    "endereco": "Rua Aurélia, Vila Romana, São Paulo",
+    "latitude": -23.5244636,
+    "longitude": -46.6981099,
+    "aluguel": 8600.0,
+    "condominio": 1200.0,
+    "iptu": 684.0,
+    "custo_total": 10815.0,
+    "quartos": 2,
+    "suites": 1,
+    "banheiros": 2,
+    "vagas": 2,
+    "area": 100,
+    "tipo": "apartamento",
+    "pet": "Sim",
+    "quintal": "Não",
+    "garagem_fechada": "Sim",
+    "lavanderia": "Sim",
+    "descricao": "Apartamento para locação em Vila Romana, São Paulo. Possui 2 quartos, 2 banheiros, 2 vagas de garagem e 100m² de área útil.",
+    "fotos": [
+      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895472798-248.13293746085773IMG7250.jpg",
+      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895472798-896.8868589271863IMG7248.jpg",
+      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895472798-686.8103344352871IMG7249.jpg"
+    ],
+    "fonte": "QuintoAndar",
+    "url": "https://www.quintoandar.com.br/imovel/895472798",
     "outras_fontes": []
   }
 ]
