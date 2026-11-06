@@ -183,37 +183,6 @@
     "outras_fontes": []
   },
   {
-    "id": "quintoandar_895024558",
-    "titulo": "Casa para alugar em Perdizes com 1 quartos, 240m²",
-    "bairro": "Perdizes",
-    "endereco": "Rua Itapicuru, Perdizes, São Paulo",
-    "latitude": -23.5352312,
-    "longitude": -46.668462,
-    "aluguel": 6750.0,
-    "condominio": 0.0,
-    "iptu": 1074.0,
-    "custo_total": 8110.0,
-    "quartos": 1,
-    "suites": 1,
-    "banheiros": 1,
-    "vagas": 0,
-    "area": 240,
-    "tipo": "casa",
-    "pet": "Sim",
-    "quintal": "Não",
-    "garagem_fechada": "Não",
-    "lavanderia": "Sim",
-    "descricao": "Casa para locação em Perdizes, São Paulo. Possui 1 quartos, 1 banheiros, 0 vagas de garagem e 240m² de área útil.",
-    "fotos": [
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895024558-836.67647558995051Sala.jpg",
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895024558-996.64111856193221Sala2.jpg",
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895024558-311.51597596862381Sala3.jpg"
-    ],
-    "fonte": "QuintoAndar",
-    "url": "https://www.quintoandar.com.br/imovel/895024558",
-    "outras_fontes": []
-  },
-  {
     "id": "quintoandar_895276182",
     "titulo": "Studiooukitchenette para alugar em Perdizes com 1 quartos, 24m²",
     "bairro": "Perdizes",
@@ -428,6 +397,37 @@
     ],
     "fonte": "QuintoAndar",
     "url": "https://www.quintoandar.com.br/imovel/895472798",
+    "outras_fontes": []
+  },
+  {
+    "id": "quintoandar_895024558",
+    "titulo": "Casa para alugar em Perdizes com 1 quartos, 240m²",
+    "bairro": "Perdizes",
+    "endereco": "Rua Itapicuru, Perdizes, São Paulo",
+    "latitude": -23.5352312,
+    "longitude": -46.668462,
+    "aluguel": 6750.0,
+    "condominio": 0.0,
+    "iptu": 1074.0,
+    "custo_total": 8110.0,
+    "quartos": 1,
+    "suites": 1,
+    "banheiros": 1,
+    "vagas": 0,
+    "area": 240,
+    "tipo": "casa",
+    "pet": "Sim",
+    "quintal": "Não",
+    "garagem_fechada": "Não",
+    "lavanderia": "Sim",
+    "descricao": "Casa para locação em Perdizes, São Paulo. Possui 1 quartos, 1 banheiros, 0 vagas de garagem e 240m² de área útil.",
+    "fotos": [
+      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895024558-836.67647558995051Sala.jpg",
+      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895024558-996.64111856193221Sala2.jpg",
+      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895024558-311.51597596862381Sala3.jpg"
+    ],
+    "fonte": "QuintoAndar",
+    "url": "https://www.quintoandar.com.br/imovel/895024558",
     "outras_fontes": []
   }
 ]
