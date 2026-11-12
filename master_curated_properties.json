@@ -60,36 +60,6 @@
     "outras_fontes": []
   },
   {
-    "id": "marcelo_imoveis_SO0159",
-    "titulo": "Sobrado com 2 salas para alugar, 138m² no Alto da Lapa",
-    "bairro": "Alto da Lapa",
-    "endereco": "Alto da Lapa, São Paulo - SP",
-    "latitude": -23.5284,
-    "longitude": -46.7112,
-    "aluguel": 5900.0,
-    "condominio": 0.0,
-    "iptu": 960.0,
-    "custo_total": 6860.0,
-    "quartos": 2,
-    "suites": 0,
-    "banheiros": 2,
-    "vagas": 2,
-    "area": 138.0,
-    "tipo": "sobrado",
-    "pet": "Sim",
-    "quintal": "Sim",
-    "garagem_fechada": "Sim",
-    "lavanderia": "Sim",
-    "descricao": "Sobrado reformado no Alto da Lapa com 138m², quintal, 2 salas amplas, copa, cozinha e 2 vagas de garagem fechada.",
-    "fotos": [
-      "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtux9G1o1o4EsFq8RBfOWAtQSk3Y+Rts-BhmDLopTz777w2uzAR+3Z8JFi8fDJTATptYNCTP0MKh4jPOVNTh66QZ+rFkZtn2eD93zEH4QebF0F7lltrBZQ+1yLfaTwsndvwgeBD6-Agy2LTY7dGlVlQPlLCdkx8QdQ8Bi1SUxy8h8d55m-oS7TO7S-K5+hxzlXFx5k9oa+Squ619jCLJU4Vr0lNm4L5VMZWe0S2-TJT-8+5wEDqv3JFhXchgzWgPAoc9j0QdZInKYDiAnDTeAY7ReywozAjaeuPE6HOlVo8emfqvu5avj3HavwOUSjh5ZGpM2VapgLd9r0WysVATsndAZCv0Cm6K6H8xG+LCqU8xBJWEGSn45y9CciYAQDspFO7Siqxg==.jpg",
-      "https://img.kenlo.io/VWRCUkQ2Tnp3d1BJRDBJVe1szkhnWr9UfpZS9ftWwjXgr7v5Znen3XVcMHllDVRJJeIbi3YwVYEtu3o-0+Vp+UsUveBJWaTi5ifcw8Cjuse3oHyM+q36s7CD8cr7fpr4wrtkzLLKLHejsOtbZeIELxopXNtWchDLVLrbPSlX+husmhzDXb5me3ByhzsPjy4O-nSDasCo3GBq3iC7DrbXhA3TabjWB3FxHrMNAdIz7EIJ8RC9W0J8p0oF7Jq1qTLdaOenJpi9yWxNWAZ8vJq+TqjzwtiOK59nSeUyO3cb51URUaJf1-aKA+9jrwcLou-TCwSW3hrDkec3f8vtBcFAnKMGlxDFG+QcvBmyz4DPg6yubR6FMlo7oLzO+KC4NKj0HazzJSWAj54Ms8+IYo8Jddj2XzAIAiU6cGYnukSk6Kmc7hG6NXSK+lVHVhONg99q7HY0JwoN-44c9SWti4c=.jpg"
-    ],
-    "fonte": "Marcelo Imóveis",
-    "url": "https://www.marceloimob.com.br/imovel/sobrado-sao-paulo-2-quartos-138-m/SO0159-NAOP",
-    "outras_fontes": []
-  },
-  {
     "id": "quintoandar_895377452",
     "titulo": "Studiooukitchenette para alugar em Vila Romana com 1 quartos, 40m²",
     "bairro": "Vila Romana",
