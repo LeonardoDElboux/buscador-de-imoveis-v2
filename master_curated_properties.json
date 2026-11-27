@@ -184,37 +184,6 @@
     "outras_fontes": []
   },
   {
-    "id": "quintoandar_895519199",
-    "titulo": "Casa para alugar em Vila Romana com 4 quartos, 280m²",
-    "bairro": "Vila Romana",
-    "endereco": "Rua Bárbara Heliodora, Vila Romana, São Paulo",
-    "latitude": -23.5342103,
-    "longitude": -46.6954156,
-    "aluguel": 16310.0,
-    "condominio": 0.0,
-    "iptu": 800.0,
-    "custo_total": 17802.0,
-    "quartos": 4,
-    "suites": 0,
-    "banheiros": 6,
-    "vagas": 3,
-    "area": 280,
-    "tipo": "casa",
-    "pet": "Sim",
-    "quintal": "Não",
-    "garagem_fechada": "Sim",
-    "lavanderia": "Sim",
-    "descricao": "Casa para locação em Vila Romana, São Paulo. Possui 4 quartos, 6 banheiros, 3 vagas de garagem e 280m² de área útil.",
-    "fotos": [
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895519199-964.8277997898905e74000b7-38fb-48af-a3ac-cb8271a4cd62-LEAD3P-1e34ddbe-47fb-4022-aee7-14123859b5fb.jpg",
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895519199-563.5341896743492e74000b7-38fb-48af-a3ac-cb8271a4cd62-LEAD3P-dc3706b2-e950-4978-966a-9f2f82c20d6f.jpg",
-      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895519199-575.0535572533137e74000b7-38fb-48af-a3ac-cb8271a4cd62-LEAD3P-d09c9923-cc04-4faa-8fdc-45e28fb88b50.jpg"
-    ],
-    "fonte": "QuintoAndar",
-    "url": "https://www.quintoandar.com.br/imovel/895519199",
-    "outras_fontes": []
-  },
-  {
     "id": "quintoandar_895408395",
     "titulo": "Apartamento para alugar em Lapa com 2 quartos, 37m²",
     "bairro": "Lapa",
@@ -398,6 +367,37 @@
     ],
     "fonte": "QuintoAndar",
     "url": "https://www.quintoandar.com.br/imovel/892777195",
+    "outras_fontes": []
+  },
+  {
+    "id": "quintoandar_895519199",
+    "titulo": "Casa para alugar em Vila Romana com 4 quartos, 280m²",
+    "bairro": "Vila Romana",
+    "endereco": "Rua Bárbara Heliodora, Vila Romana, São Paulo",
+    "latitude": -23.5342103,
+    "longitude": -46.6954156,
+    "aluguel": 13500.0,
+    "condominio": 0.0,
+    "iptu": 800.0,
+    "custo_total": 14873.0,
+    "quartos": 4,
+    "suites": 0,
+    "banheiros": 6,
+    "vagas": 3,
+    "area": 280,
+    "tipo": "casa",
+    "pet": "Sim",
+    "quintal": "Não",
+    "garagem_fechada": "Sim",
+    "lavanderia": "Sim",
+    "descricao": "Casa para locação em Vila Romana, São Paulo. Possui 4 quartos, 6 banheiros, 3 vagas de garagem e 280m² de área útil.",
+    "fotos": [
+      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895519199-964.8277997898905e74000b7-38fb-48af-a3ac-cb8271a4cd62-LEAD3P-1e34ddbe-47fb-4022-aee7-14123859b5fb.jpg",
+      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895519199-563.5341896743492e74000b7-38fb-48af-a3ac-cb8271a4cd62-LEAD3P-dc3706b2-e950-4978-966a-9f2f82c20d6f.jpg",
+      "https://www.quintoandar.com.br/img/crop/landscape/540x360/original895519199-575.0535572533137e74000b7-38fb-48af-a3ac-cb8271a4cd62-LEAD3P-d09c9923-cc04-4faa-8fdc-45e28fb88b50.jpg"
+    ],
+    "fonte": "QuintoAndar",
+    "url": "https://www.quintoandar.com.br/imovel/895519199",
     "outras_fontes": []
   }
 ]
